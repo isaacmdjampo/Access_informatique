@@ -1,3 +1,28 @@
 @import './base.css';
+/* 
+@layer utilities {
+  .bg-green-600 :is(.text-white, .text-white\/90, .text-green-100),
+  .bg-green-500 :is(.text-white, .text-white\/90, .text-green-100),
+  .bg-green-700 :is(.text-white, .text-white\/90, .text-green-100),
+  .bg-green-800 :is(.text-white, .text-white\/90, .text-green-100) {
+    font-weight: 700;
+  }
+}
 
+@layer components {
+  .topbar-social-link {
+    @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-white font-semibold shadow-lg shadow-slate-950\/15 transition-colors duration-200;
+  }
 
+  .topbar-social-link.facebook {
+    @apply bg-blue-700 hover:bg-blue-600 border-transparent;
+  }
+
+  .topbar-social-link.whatsapp {
+    @apply bg-emerald-500 hover:bg-emerald-600 border-transparent;
+  }
+
+  .topbar-social-link:focus-visible {
+    @apply outline-none ring-2 ring-white\/75;
+  }
+} */
