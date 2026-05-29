@@ -13,16 +13,18 @@
         <div
           class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/20 bg-green-50 text-green-700 text-xs font-bold uppercase tracking-[0.2em] mb-8"
         >
-          <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+          <span class="hero-badge w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
           Inscription — Access Informatique
         </div>
 
-        <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[0.95] text-slate-900">
+        <h1
+          class="hero-title text-4xl md:text-6xl font-black tracking-tight leading-[0.95] text-slate-900"
+        >
           Rejoignez nos
           <span class="text-green-600">formations.</span>
         </h1>
 
-        <p class="mt-6 text-lg text-slate-500 leading-relaxed max-w-xl mx-auto">
+        <p class="hero-copy mt-6 text-lg text-slate-500 leading-relaxed max-w-xl mx-auto">
           Remplissez ce formulaire et notre équipe vous contactera dans les 24h pour confirmer votre
           inscription.
         </p>
@@ -292,7 +294,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 
 const form = reactive({
   prenom: '',
@@ -308,6 +310,11 @@ const form = reactive({
 
 const isSubmitting = ref(false)
 const submitted = ref(false)
+
+// Forcer le scroll en haut au chargement de la page
+onMounted(() => {
+  window.scrollTo({ top: 0, behavior: 'instant' })
+})
 
 const handleSubmit = async () => {
   if (!form.prenom || !form.nom || !form.email || !form.telephone || !form.formation) {
@@ -325,12 +332,26 @@ const handleSubmit = async () => {
 
   // Scroll vers le message de succès
   setTimeout(() => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+    document.querySelector('.fade-enter-active')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    })
   }, 100)
 }
 </script>
 
 <style scoped>
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .hero-grid {
   background-image:
     linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
@@ -348,6 +369,19 @@ const handleSubmit = async () => {
 .fade-leave-to {
   opacity: 0;
   transform: translateY(12px);
+}
+
+.hero-badge {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.1s;
+}
+.hero-title {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.2s;
+}
+.hero-copy {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.35s;
 }
 
 select {

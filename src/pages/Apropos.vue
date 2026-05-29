@@ -23,14 +23,16 @@
 
           <!-- TITRE -->
           <h1
-            class="text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[0.95] mb-8"
+            class="hero-title text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[0.95] mb-8"
           >
             Nous développons<br />
             <span class="texte-degrade-green"> des solutions utiles. </span>
           </h1>
 
           <!-- TEXTE -->
-          <p class="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mb-12 mx-auto">
+          <p
+            class="hero-copy text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mb-12 mx-auto"
+          >
             Depuis plus de 20 ans, Access Informatique accompagne les entreprises, écoles,
             cliniques, mutuelles et institutions avec des logiciels conçus spécialement pour leurs
             réalités métiers.
@@ -266,66 +268,13 @@
 
 <script setup>
 import { ref } from 'vue'
+import {
+  listeLogiciels as listeLogicielsData,
+  listeReferences as listeReferencesData,
+} from '@/data/aboutData'
 
-const listeLogiciels = ref([
-  {
-    nom: 'SoluMed',
-    categorie: 'Santé',
-    image: '/src/assets/images/Logiciels/cvsolumed.png',
-    description: 'Solution complète pour la gestion des cliniques, centres médicaux et hôpitaux.',
-    references: ['Clinique St Trinité', 'Centre Médical Lumière', 'GM CITECHNO'],
-  },
-  {
-    nom: 'MySchool',
-    categorie: 'Éducation',
-    image: '/src/assets/images/Logiciels/cvmyschool.png',
-    description: 'Plateforme scolaire moderne pour la gestion administrative et pédagogique.',
-    references: ['Université Atlantique', 'IS Blaise Pascal', 'Collège MERAJEA'],
-  },
-  {
-    nom: 'Matrix',
-    categorie: 'Comptabilité',
-    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&q=80',
-    description: 'Gestion comptable conforme aux normes SYSCOHADA.',
-    references: ['FPPN', 'TANCHIVOIRE', 'FHACI'],
-  },
-  {
-    nom: 'SmartRHPaie',
-    categorie: 'Ressources humaines',
-    image: '/src/assets/images/Logiciels/cvsmartrh.png',
-    description: 'Gestion RH, paie, contrats et suivi du personnel.',
-    references: ['PME', 'Entreprises privées', 'Structures administratives'],
-  },
-  {
-    nom: 'Simba',
-    categorie: 'Immobilier',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80',
-    description: 'Gestion immobilière et suivi des loyers.',
-    references: ['Cabinets immobiliers', 'Agences privées', 'EPSI'],
-  },
-])
-
-const listeReferences = ref([
-  {
-    nom: 'Centre Médical Lumière',
-    logo: '/src/assets/images/References/logrefcentremedicalelumiere.png',
-  },
-  { nom: 'YNACASS', logo: '/src/assets/images/References/logo_synacassci.png' },
-  { nom: 'FPPN', logo: '/src/assets/images/References/logrefFPPN.png' },
-  { nom: 'EPSI', logo: '/src/assets/images/References/logrefepsi.png' },
-  { nom: 'CMAC', logo: '/src/assets/images/References/logrefCliniqMedicalAcasa.png' },
-  { nom: 'IRMA', logo: '/src/assets/images/References/logrefirmabassam.jpeg' },
-  { nom: 'MUSACNRA', logo: '/src/assets/images/References/logrefMUSACNRA.png' },
-  { nom: 'TANCHIVOIRE', logo: '/src/assets/images/References/logreftranchIvoire.png' },
-  {
-    nom: 'Université Atlantique',
-    logo: '/src/assets/images/References/logrefuniversiteatlantiq.jfif',
-  },
-  {
-    nom: 'Clinique Sainte Henriette',
-    logo: '/src/assets/images/References/logrefpolycliqstHenriette.jpg',
-  },
-])
+const listeLogiciels = ref(listeLogicielsData)
+const listeReferences = ref(listeReferencesData)
 </script>
 
 <style scoped>
@@ -341,5 +290,40 @@ const listeReferences = ref([
 .texte-degrade-green {
   color: #16a34a;
   font-weight: 700;
+}
+
+.hero-badge {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.1s;
+}
+.hero-title {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.2s;
+}
+.hero-copy {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.35s;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>

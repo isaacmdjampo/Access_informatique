@@ -6,81 +6,36 @@ import Formation from '../pages/Formation.vue'
 import Contact from '../pages/Contact.vue'
 import Hackathon from '../pages/Hackathon.vue'
 import LoginInscription from '../components/Login_Inscription.vue'
-import SoluMed from '../components/SoluMed.vue'
-import MySchool from '../components/Myschool.vue'
-import Matrix from '../components/Matrix.vue'
-import Simba from '../components/Simba.vue'
-import Musa from '../components/Musa.vue'
-import SmartRH from '../components/SmartRH.vue'
+
+// IMPORT pour toutes les solutions
+import SolutionDetails from '../Logiciels/SolutionDetails.vue'
+
+// Pages formations
+import FormationsList from '../components/FormationsList.vue'
+import FormationDetail from '../pages/FormationDetail.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) return savedPosition
+    return { top: 0 }
+  },
   routes: [
-    {
-      path: '/',
-      name: 'accueil',
-      component: Accueil,
-    },
-    {
-      path: '/solutions',
-      name: 'solutions',
-      component: Solution,
-    },
-    {
-      path: '/solutions/solumed',
-      name: 'solumed',
-      component: SoluMed,
-    },
-    {
-      path: '/solutions/myschool',
-      name: 'myschool',
-      component: MySchool,
-    },
-    {
-      path: '/solutions/matrix',
-      name: 'matrix',
-      component: Matrix,
-    },
-    {
-      path: '/solutions/simba',
-      name: 'simba',
-      component: Simba,
-    },
-    {
-      path: '/solutions/musa',
-      name: 'musa',
-      component: Musa,
-    },
-    {
-      path: '/solutions/smartrhpaie',
-      name: 'smartrhpaie',
-      component: SmartRH,
-    },
-    {
-      path: '/apropos',
-      name: 'a-propos',
-      component: Apropos,
-    },
-    {
-      path: '/formation',
-      name: 'formation',
-      component: Formation,
-    },
-    {
-      path: '/inscription',
-      name: 'inscription',
-      component: LoginInscription,
-    },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: Contact,
-    },
-    {
-      path: '/hackathon',
-      name: 'hackathon',
-      component: Hackathon,
-    },
+    // Pages principales
+    { path: '/', name: 'accueil', component: Accueil },
+    { path: '/solutions', name: 'solutions', component: Solution },
+    { path: '/formations', name: 'formations', component: FormationsList },
+    { path: '/apropos', name: 'a-propos', component: Apropos },
+    { path: '/formation', name: 'formation', component: Formation },
+    { path: '/inscription', name: 'inscription', component: LoginInscription },
+    { path: '/contact', name: 'contact', component: Contact },
+    { path: '/hackathon', name: 'hackathon', component: Hackathon },
+
+    //  Route dynamique pour les formations
+    { path: '/formation/:slug', name: 'formation-detail', component: FormationDetail },
+
+    //  Route dynamique pour les solutions
+    { path: '/solutions/:slug', name: 'solution-detail', component: SolutionDetails },
   ],
 })
 

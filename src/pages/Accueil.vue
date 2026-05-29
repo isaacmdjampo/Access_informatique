@@ -318,219 +318,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, h } from 'vue'
-
-// Slider logiciels
-const softwareSlides = ref([
-  {
-    id: 1,
-    name: 'SoluMed',
-    category: 'Santé',
-    description: 'Gestion complète de cliniques, hôpitaux et centres de santé',
-    image: '/src/assets/images/Logiciels/cvsolumed.png',
-    route: '/solutions/solumed',
-  },
-  {
-    id: 2,
-    name: 'MySchool',
-    category: 'Éducation',
-    description: "Plateforme collaborative pour écoles, enseignants et parents d'élèves",
-    image: '/src/assets/images/Logiciels/cvmyschool.png',
-    route: '/solutions/myschool',
-  },
-  {
-    id: 3,
-    name: 'Matrix',
-    category: 'Comptabilité',
-    description: 'Traitement comptable conforme aux normes SYSCOHADA',
-    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&q=80',
-    route: '/solutions/matrix',
-  },
-  {
-    id: 4,
-    name: 'SmartRHPaie',
-    category: 'Ressources Humaines',
-    description: 'Pilotez votre capital humain avec précision et conformité',
-    image: '/src/assets/images/Logiciels/cvsmartrh.png',
-    route: '/solutions/smartrhpaie',
-  },
-  {
-    id: 5,
-    name: 'Simba',
-    category: 'Immobilier',
-    description: 'Gestion de loyers, quittances et relances automatiques',
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&q=80',
-    route: '/solutions/simba',
-  },
-])
-
-const partners = ref([
-  {
-    id: 1,
-    name: 'La Cocinelle',
-    logo: '/src/assets/images/References/Logefcoccinelle.jpg',
-    url: '#',
-  },
-  {
-    id: 2,
-    name: 'Centre Médical Lumière',
-    logo: '/src/assets/images/References/logrefcentremedicalelumiere.png',
-    url: '#',
-  },
-  {
-    id: 4,
-    name: 'YNACASS.CI',
-    logo: '/src/assets/images/References/logo_synacassci.png',
-    url: '#',
-  },
-  { id: 5, name: 'FPPN', logo: '/src/assets/images/References/logrefFPPN.png', url: '#' },
-  {
-    id: 6,
-    name: 'Ecole Supérieure Des Professions Immobilières',
-    logo: '/src/assets/images/References/logrefepsi.png',
-    url: '#',
-  },
-  {
-    id: 7,
-    name: "Groupe Médicale Côte D'ivoire Techno",
-    logo: '/src/assets/images/References/logrefTechno.png',
-    url: '#',
-  },
-  {
-    id: 8,
-    name: 'Clinique Médicale St. Trinité',
-    logo: '/src/assets/images/References/logCliniqstTrinite.png',
-    url: '#',
-  },
-  {
-    id: 9,
-    name: 'Institut Supérieur Blaise Pascal',
-    logo: '/src/assets/images/References/LOGO2.jpg',
-    url: '#',
-  },
-  {
-    id: 10,
-    name: 'FIV FATIMA',
-    logo: '/src/assets/images/References/logrefCentremedicalFatima.png',
-    url: '#',
-  },
-  {
-    id: 11,
-    name: 'CMAC',
-    logo: '/src/assets/images/References/logrefCliniqMedicalAcasa.png',
-    url: '#',
-  },
-  {
-    id: 12,
-    name: 'Clinique Médicale Les drés',
-    logo: '/src/assets/images/References/logrefCliniqMedicalDre.png',
-    url: '#',
-  },
-  {
-    id: 13,
-    name: 'Ecole Hoetière',
-    logo: '/src/assets/images/References/logrefehbbassam.png',
-    url: '#',
-  },
-  {
-    id: 14,
-    name: 'G S Lavoisier',
-    logo: '/src/assets/images/References/logrefGSLAVOLIERE.jpg',
-    url: '#',
-  },
-  {
-    id: 15,
-    name: 'Groupe Médical La Renaissance',
-    logo: '/src/assets/images/References/logrefHACI.png',
-    url: '#',
-  },
-  { id: 17, name: 'IRMA', logo: '/src/assets/images/References/logrefirmabassam.jpeg', url: '#' },
-  {
-    id: 18,
-    name: 'Collège MERAJEA',
-    logo: '/src/assets/images/References/logrefmerajea.png',
-    url: '#',
-  },
-  { id: 19, name: 'MUSACNRA', logo: '/src/assets/images/References/logrefMUSACNRA.png', url: '#' },
-  {
-    id: 20,
-    name: 'Clinique Polyvalente Sainte Henriette',
-    logo: '/src/assets/images/References/logrefpolycliqstHenriette.jpg',
-    url: '#',
-  },
-  {
-    id: 21,
-    name: 'GM CITECHNO',
-    logo: '/src/assets/images/References/logrefcliniqTechnos.jpeg',
-    url: '#',
-  },
-  {
-    id: 22,
-    name: 'TANCHIVOIRE',
-    logo: '/src/assets/images/References/logreftranchIvoire.png',
-    url: '#',
-  },
-  {
-    id: 23,
-    name: 'UA',
-    logo: '/src/assets/images/References/logrefuniversiteatlantiq.jfif',
-    url: '#',
-  },
-])
-
-const IconCode = {
-  render: () =>
-    h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
-      h('path', {
-        'stroke-linecap': 'round',
-        'stroke-linejoin': 'round',
-        'stroke-width': '2',
-        d: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4',
-      }),
-    ]),
-}
-
-const IconShield = {
-  render: () =>
-    h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
-      h('path', {
-        'stroke-linecap': 'round',
-        'stroke-linejoin': 'round',
-        'stroke-width': '2',
-        d: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-      }),
-    ]),
-}
-
-const IconUsers = {
-  render: () =>
-    h('svg', { fill: 'none', stroke: 'currentColor', viewBox: '0 0 24 24' }, [
-      h('path', {
-        'stroke-linecap': 'round',
-        'stroke-linejoin': 'round',
-        'stroke-width': '2',
-        d: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
-      }),
-    ]),
-}
-
-const pillars = [
-  {
-    icon: IconCode,
-    title: 'Développement sur mesure',
-    text: 'Chaque logiciel est conçu de zéro pour correspondre exactement à vos processus métier. Aucun compromis, aucune fonctionnalité inutile.',
-  },
-  {
-    icon: IconShield,
-    title: 'Fiabilité & conformité',
-    text: 'Nos solutions sont conformes aux standards locaux (SYSCOHADA, réglementation ivoirienne) et sont utilisées en production depuis plus de 20 ans.',
-  },
-  {
-    icon: IconUsers,
-    title: 'Accompagnement humain',
-    text: "Assistance technique permanente, formations incluses, équipe disponible du lundi au samedi. Vous n'êtes jamais seuls.",
-  },
-]
+import { ref, onMounted, onUnmounted } from 'vue'
+import { softwareSlides, partners, pillars } from '@/data/homeData'
 
 const currentSlide = ref(0)
 let sliderInterval = null
@@ -542,21 +331,22 @@ function goToSlide(index) {
 }
 
 function nextSlide() {
-  currentSlide.value = (currentSlide.value + 1) % softwareSlides.value.length
-  clearInterval(sliderInterval)
+  currentSlide.value = (currentSlide.value + 1) % softwareSlides.length
+  if (sliderInterval) clearInterval(sliderInterval)
   startSlider()
 }
 
 function prevSlide() {
   currentSlide.value =
-    (currentSlide.value - 1 + softwareSlides.value.length) % softwareSlides.value.length
-  clearInterval(sliderInterval)
+    (currentSlide.value - 1 + softwareSlides.length) % softwareSlides.length
+  if (sliderInterval) clearInterval(sliderInterval)
   startSlider()
 }
 
 function startSlider() {
+  if (sliderInterval) clearInterval(sliderInterval)
   sliderInterval = setInterval(() => {
-    currentSlide.value = (currentSlide.value + 1) % softwareSlides.value.length
+    currentSlide.value = (currentSlide.value + 1) % softwareSlides.length
   }, 4500)
 }
 

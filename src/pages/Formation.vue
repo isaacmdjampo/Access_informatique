@@ -1,12 +1,8 @@
-# Formation.vue ```vue
 <template>
   <div class="formation-page bg-white text-slate-900 overflow-hidden">
-    <!-- HERO -->
     <section class="relative pt-36 pb-24 overflow-hidden bg-white">
-      <!-- grille -->
       <div class="hero-grid absolute inset-0 pointer-events-none"></div>
 
-      <!-- halos -->
       <div
         class="absolute -top-20 right-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-20"
         style="background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, transparent 70%)"
@@ -18,28 +14,28 @@
       ></div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
-        <!-- Texte -->
         <div>
           <div
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/20 bg-green-50 text-green-700 text-xs font-bold uppercase tracking-[0.2em] mb-8"
+            class="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-500/20 bg-green-50 text-green-700 text-xs font-bold uppercase tracking-[0.2em] mb-8"
           >
             <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
             Formation professionnelle — Access Informatique
           </div>
 
-          <h1 class="text-5xl md:text-7xl font-black tracking-tight leading-[0.95] text-slate-900">
+          <h1
+            class="hero-title text-5xl md:text-7xl font-black tracking-tight leading-[0.95] text-slate-900"
+          >
             Formez-vous aux métiers du
             <span class="text-green-600">numérique.</span>
           </h1>
 
-          <p class="mt-8 text-lg text-slate-600 leading-relaxed max-w-2xl">
+          <p class="hero-copy mt-8 text-lg text-slate-600 leading-relaxed max-w-2xl">
             Des formations modernes, pratiques et professionnalisantes pour étudiants, entreprises
             et particuliers. Développement web, bureautique, design, cybersécurité, intelligence
             artificielle et bien plus.
           </p>
 
-          <!-- boutons -->
-          <div class="flex flex-col sm:flex-row gap-4 mt-10">
+          <div class="hero-ctas flex flex-col sm:flex-row gap-4 mt-10">
             <router-link
               to="/contact"
               class="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-green-600 hover:bg-green-500 text-white font-bold transition-all duration-300 shadow-xl shadow-green-600/20 hover:-translate-y-1"
@@ -60,15 +56,22 @@
               </svg>
             </router-link>
 
-            <a
-              href="#catalogue"
-              class="inline-flex items-center justify-center px-8 py-4 rounded-2xl border border-slate-300 hover:border-green-500 hover:text-green-600 font-semibold transition-all duration-300 hover:-translate-y-1"
+            <router-link
+              :to="{ name: 'formations' }"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white font-semibold transition-all duration-300"
             >
-              Voir les formations
-            </a>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                />
+              </svg>
+              Voir toutes les formations
+            </router-link>
           </div>
 
-          <!-- statistiques -->
           <div
             class="grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden rounded-3xl border border-green-100 bg-green-100 mt-14"
           >
@@ -94,7 +97,6 @@
           </div>
         </div>
 
-        <!-- image hero -->
         <div class="relative">
           <div
             class="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-green-100 to-green-50 blur-3xl opacity-60 scale-95"
@@ -126,8 +128,7 @@
       </div>
     </section>
 
-    <!-- SECTION DOMAINES -->
-    <section id="catalogue" class="py-24 bg-slate-50">
+    <section id="catalogue" class="py-10 bg-slate-50">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center max-w-3xl mx-auto mb-16">
           <p class="text-green-600 font-bold uppercase tracking-[0.2em] text-xs mb-4">
@@ -143,14 +144,12 @@
           </p>
         </div>
 
-        <!-- cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           <div
             v-for="formation in formations"
             :key="formation.title"
-            class="group bg-white border border-slate-200 rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-green-100/50 hover:-translate-y-2 transition-all duration-500"
+            class="group bg-white border border-slate-200 rounded-[2rem] overflow-hidden hover:shadow-2xl hover:shadow-green-100/50 hover:-translate-y-2 transition-all duration-500 flex flex-col"
           >
-            <!-- image -->
             <div class="relative overflow-hidden h-60">
               <img
                 :src="formation.image"
@@ -161,23 +160,12 @@
               <div
                 class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"
               ></div>
-
-              <div
-                class="absolute top-5 left-5 px-3 py-1 rounded-full bg-white/90 text-xs font-bold uppercase tracking-wider text-green-700"
-              >
-                {{ formation.level }}
-              </div>
             </div>
 
-            <!-- contenu -->
-            <div class="p-8">
+            <div class="p-8 flex flex-col flex-grow">
               <div class="flex items-center justify-between mb-4">
                 <span class="text-xs uppercase tracking-widest text-green-600 font-bold">
                   {{ formation.category }}
-                </span>
-
-                <span class="text-sm text-slate-400 font-medium">
-                  {{ formation.duration }}
                 </span>
               </div>
 
@@ -189,7 +177,6 @@
                 {{ formation.description }}
               </p>
 
-              <!-- compétences -->
               <div class="flex flex-wrap gap-2 mb-8">
                 <span
                   v-for="skill in formation.skills"
@@ -200,32 +187,68 @@
                 </span>
               </div>
 
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="text-sm text-slate-400">À partir de</div>
-                  <div class="text-2xl font-black text-green-600">
-                    {{ formation.price }}
-                  </div>
-                </div>
-
+              <!-- Bouton aligné en bas de la carte -->
+              <div class="mt-auto">
                 <router-link
-                  to="/inscription"
-                  class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-green-600 text-white font-semibold transition-all duration-300"
+                  :to="{ name: 'formation-detail', params: { slug: formation.slug } }"
+                  class="inline-flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-slate-900 hover:bg-green-600 text-white font-semibold transition-all duration-300 group/btn"
                 >
-                  S'inscrire
+                  Détails de la formation
+                  <svg
+                    class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
                 </router-link>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- BOUTON VOIR TOUTES LES FORMATIONS -->
+        <div class="flex justify-center mt-16">
+          <router-link
+            :to="{ name: 'formations' }"
+            class="group inline-flex items-center justify-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-600 text-white font-black text-lg transition-all duration-300 shadow-xl shadow-green-600/30 hover:-translate-y-1 hover:shadow-2xl"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
+            </svg>
+            Voir toutes les formations
+            <svg
+              class="w-5 h-5 group-hover:translate-x-1 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </router-link>
+        </div>
       </div>
     </section>
 
-    <!-- SECTION METHODE -->
     <section class="py-24 bg-white">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid lg:grid-cols-2 gap-20 items-center">
-          <!-- gauche -->
           <div>
             <p class="text-green-600 uppercase tracking-[0.2em] text-xs font-bold mb-4">
               Notre méthode
@@ -289,7 +312,6 @@
             </div>
           </div>
 
-          <!-- droite -->
           <div class="relative">
             <div class="grid grid-cols-2 gap-6">
               <div class="space-y-6 pt-16">
@@ -338,7 +360,6 @@
       </div>
     </section>
 
-    <!-- SECTION FORMAT -->
     <section class="py-24 bg-slate-950 text-white relative overflow-hidden">
       <div
         class="absolute inset-0 opacity-20"
@@ -414,7 +435,6 @@
       </div>
     </section>
 
-    <!-- CTA FINAL -->
     <section class="py-24 bg-green-600 relative overflow-hidden">
       <div
         class="absolute inset-0 opacity-30"
@@ -459,83 +479,7 @@
 </template>
 
 <script setup>
-const formations = [
-  {
-    title: 'Développement Web Full Stack',
-    category: 'Développement',
-    level: 'Débutant à avancé',
-    duration: '6 mois',
-    price: '150 000 FCFA',
-    image:
-      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop',
-    description:
-      'Apprenez HTML, CSS, JavaScript, Vue.js, Node.js et les bases de données avec des projets concrets.',
-    skills: ['HTML', 'Vue.js', 'Tailwind', 'API'],
-  },
-
-  {
-    title: 'Bureautique Professionnelle',
-    category: 'Productivité',
-    level: 'Tous niveaux',
-    duration: '2 mois',
-    price: '60 000 FCFA',
-    image:
-      'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop',
-    description: 'Maîtrisez Word, Excel, PowerPoint et les outils collaboratifs modernes.',
-    skills: ['Word', 'Excel', 'PowerPoint', 'Google Workspace'],
-  },
-
-  {
-    title: 'Design Graphique & UI/UX',
-    category: 'Design',
-    level: 'Intermédiaire',
-    duration: '4 mois',
-    price: '120 000 FCFA',
-    image:
-      'https://images.unsplash.com/photo-1558655146-9f40138edfeb?q=80&w=1200&auto=format&fit=crop',
-    description: 'Créez des interfaces modernes avec Figma, Photoshop et les principes UX/UI.',
-    skills: ['Figma', 'Photoshop', 'UI Design', 'UX'],
-  },
-
-  {
-    title: 'Cybersécurité & Réseaux',
-    category: 'Sécurité',
-    level: 'Avancé',
-    duration: '5 mois',
-    price: '180 000 FCFA',
-    image:
-      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop',
-    description:
-      'Découvrez les fondamentaux de la sécurité informatique et de la protection des réseaux.',
-    skills: ['Sécurité', 'Linux', 'Réseaux', 'Firewall'],
-  },
-
-  {
-    title: 'Intelligence Artificielle',
-    category: 'IA',
-    level: 'Intermédiaire',
-    duration: '3 mois',
-    price: '200 000 FCFA',
-    image:
-      'https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop',
-    description:
-      'Initiez-vous au Machine Learning, aux IA génératives et aux outils d’automatisation modernes.',
-    skills: ['Python', 'Machine Learning', 'ChatGPT', 'Data'],
-  },
-
-  {
-    title: 'Marketing Digital',
-    category: 'Business',
-    level: 'Tous niveaux',
-    duration: '2 mois',
-    price: '80 000 FCFA',
-    image:
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop',
-    description:
-      'Développez votre visibilité avec les réseaux sociaux, la publicité et le branding.',
-    skills: ['Facebook Ads', 'SEO', 'Canva', 'Branding'],
-  },
-]
+import { formations } from '@/data/formations'
 </script>
 
 <style scoped>
@@ -544,6 +488,30 @@ const formations = [
     linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
   background-size: 80px 80px;
+}
+
+.hero-badge {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.1s;
+}
+.hero-title {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.2s;
+}
+.hero-copy {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.35s;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 768px) {

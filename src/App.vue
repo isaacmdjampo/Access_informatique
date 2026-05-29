@@ -9,8 +9,7 @@
           : 'bg-white/80 backdrop-blur-sm border-b border-slate-200/50'
       "
     >
-      <!-- Barre blanche au dessus du header -->
-
+      <!-- Barre verte au dessus du header -->
       <div class="px-6 py-2 bg-green-600 text-white w-full">
         <div
           class="max-w-7xl mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-sm"
@@ -25,21 +24,21 @@
             <span class="hidden sm:inline text-white font-semibold">|</span>
             <a
               href="mailto:info@accessinformatique.com"
-              class="text-white font-semibold hover:text-white transition-colors duration-200"
+              class="text-white hover:text-white/80 transition-colors duration-200"
             >
               info@accessinformatique.com
             </a>
             <span class="hidden sm:inline text-white font-semibold">|</span>
             <a
               href="tel:+2250101573054"
-              class="text-white font-semibold hover:text-white transition-colors duration-200"
+              class="text-white hover:text-white/80 transition-colors duration-200"
             >
               (+225) 01 01 57 30 54
             </a>
             <span class="hidden sm:inline text-white font-semibold">|</span>
             <a
               href="tel:+2250707261858"
-              class="text-white font-semibold hover:text-white transition-colors duration-200"
+              class="text-white hover:text-white/80 transition-colors duration-200"
             >
               (+225) 07 07 26 18 58
             </a>
@@ -51,14 +50,9 @@
               href="https://www.facebook.com/accessinformatique"
               target="_blank"
               rel="noreferrer"
-              class="topbar-social-link facebook"
+              class="inline-flex items-center gap-2 text-white hover:text-white/80 transition-all duration-200"
             >
-              <svg
-                class="w-4 h-4 text-white"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path
                   d="M22 12.07C22 6.43 17.52 2 12 2S2 6.43 2 12.07c0 4.99 3.66 9.12 8.44 9.93v-7.04H7.9V12h2.54V9.8c0-2.5 1.49-3.88 3.78-3.88 1.1 0 2.24.2 2.24.2v2.47h-1.27c-1.25 0-1.64.78-1.64 1.58V12h2.8l-.45 2.96h-2.35v7.04C18.34 21.19 22 17.06 22 12.07z"
                 />
@@ -69,14 +63,9 @@
               href="https://wa.me/2250707261858"
               target="_blank"
               rel="noreferrer"
-              class="topbar-social-link whatsapp"
+              class="inline-flex items-center gap-2 text-white hover:text-white/80 transition-all duration-200"
             >
-              <svg
-                class="w-4 h-4 text-white"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path
                   d="M20.52 3.48A11.8 11.8 0 0012.04 0C5.5 0 .2 5.3.2 11.84c0 2.08.54 4.1 1.56 5.88L0 24l6.46-1.7a11.8 11.8 0 005.58 1.42h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.4zM12.05 21.7a9.8 9.8 0 01-5-1.37l-.36-.21-3.83 1 1.02-3.73-.23-.38a9.76 9.76 0 01-1.5-5.17c0-5.4 4.4-9.8 9.81-9.8 2.62 0 5.08 1.02 6.93 2.87a9.72 9.72 0 012.87 6.93c0 5.4-4.4 9.8-9.81 9.8zm5.38-7.35c-.3-.15-1.77-.88-2.04-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.46-.88-.79-1.48-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.08-.8.37-.27.3-1.05 1.02-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.3 1.28.48 1.72.62.72.23 1.37.2 1.88.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"
                 />
@@ -88,7 +77,6 @@
       </div>
 
       <!-- HEADER -->
-
       <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <!-- Logo -->
         <router-link to="/" class="flex-shrink-0 transition-opacity hover:opacity-80">
@@ -100,12 +88,7 @@
           <li v-for="link in navLinks" :key="link.to">
             <router-link
               :to="link.to"
-              class="px-4 py-2 rounded-lg transition-all duration-200"
-              :class="
-                scrolled
-                  ? 'text-slate-700 hover:text-green-600 hover:bg-green-50'
-                  : 'text-slate-700 hover:text-green-600 hover:bg-green-50'
-              "
+              class="px-4 py-2 rounded-lg transition-all duration-200 text-slate-700 hover:text-green-600 hover:bg-green-50"
               active-class="!text-green-600 font-semibold"
             >
               {{ link.label }}
@@ -178,7 +161,7 @@
             </li>
             <li>
               <router-link
-                :to="{ name: 'inscription' }"
+                to="/inscription"
                 @click="mobileMenuOpen = false"
                 class="block px-4 py-3 rounded-xl bg-green-600 hover:bg-green-500 text-white font-semibold text-center transition-colors"
               >
@@ -190,24 +173,23 @@
       </Transition>
     </nav>
 
-    <!-- CONTENU PRINCIPAL -->
-
-    <main class="flex-1">
+    <!-- =========================================================
+         CONTENU PRINCIPAL
+         ========================================================= -->
+    <main class="flex-1 pt-32">
       <router-view />
     </main>
 
-    <!-- FOOTER -->
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
     <footer class="bg-slate-950 text-slate-400">
       <!-- Contenu principal du footer -->
       <div class="max-w-7xl mx-auto px-6 py-16">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
           <!-- Colonne 1 : Marque -->
           <div class="md:col-span-2 space-y-4">
-            <img
-              :src="logoUrl"
-              alt="Access Informatique"
-              class="h-9 w-auto brightness-0 invert opacity-80"
-            />
+            <img :src="logoUrl" alt="Access Informatique" class="h-9 w-auto brightness-0 invert" />
             <p class="text-sm leading-relaxed max-w-xs">
               Éditeur de solutions de gestion sur mesure pour les entreprises, institutions et
               professionnels de Côte d'Ivoire et d'Afrique.
@@ -217,7 +199,7 @@
               <a
                 href="#"
                 aria-label="Facebook"
-                class="w-9 h-9 rounded-lg bg-white/5 hover:bg-blue-600 flex items-center justify-center transition-colors duration-200"
+                class="w-9 h-9 rounded-lg bg-white/5 hover:bg-green-600 flex items-center justify-center transition-colors duration-200"
               >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -226,14 +208,13 @@
                 </svg>
               </a>
               <a
-                href="https://wa.me/2250707261858"
-                target="_blank"
-                aria-label="WhatsApp"
+                href="#"
+                aria-label="LinkedIn"
                 class="w-9 h-9 rounded-lg bg-white/5 hover:bg-green-600 flex items-center justify-center transition-colors duration-200"
               >
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path
-                    d="M20.52 3.48A11.8 11.8 0 0012.04 0C5.5 0 .2 5.3.2 11.84c0 2.08.54 4.1 1.56 5.88L0 24l6.46-1.7a11.8 11.8 0 005.58 1.42h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.4zM12.05 21.7a9.8 9.8 0 01-5-1.37l-.36-.21-3.83 1 1.02-3.73-.23-.38a9.76 9.76 0 01-1.5-5.17c0-5.4 4.4-9.8 9.81-9.8 2.62 0 5.08 1.02 6.93 2.87a9.72 9.72 0 012.87 6.93c0 5.4-4.4 9.8-9.81 9.8zm5.38-7.35c-.3-.15-1.77-.88-2.04-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.46-.88-.79-1.48-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.08-.8.37-.27.3-1.05 1.02-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.3 1.28.48 1.72.62.72.23 1.37.2 1.88.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
                   />
                 </svg>
               </a>
@@ -314,16 +295,16 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import logoUrl from './assets/images/logo.png'
 
-//  Navigation
+// ─── Navigation ───────────────────────────────────────────────────────────────
 const navLinks = [
   { to: '/', label: 'Accueil' },
   { to: '/solutions', label: 'Nos solutions' },
-  { to: '/formation', label: 'Formation' },
-  { to: '/hackathon', label: 'Hackathon' },
   { to: '/apropos', label: 'Qui sommes-nous ?' },
+  { to: '/hackathon', label: 'Hackathon' },
+  { to: '/formation', label: 'Formation' },
 ]
 
-//  Footer solutions
+// ─── Footer solutions ─────────────────────────────────────────────────────────
 const footerSolutions = [
   { to: '/solutions/solumed', label: 'SoluMed — Santé' },
   { to: '/solutions/myschool', label: 'MySchool — Éducation' },
@@ -333,14 +314,14 @@ const footerSolutions = [
   { to: '/solutions/smartrhpaie', label: 'SmartRHPaie — RH & Paie' },
 ]
 
-// Header scroll effect
+// ─── Header scroll effect ─────────────────────────────────────────────────────
 const scrolled = ref(false)
 
 function handleScroll() {
   scrolled.value = window.scrollY > 30
 }
 
-//  Menu mobile
+// ─── Menu mobile ──────────────────────────────────────────────────────────────
 const mobileMenuOpen = ref(false)
 
 function toggleMobileMenu() {
