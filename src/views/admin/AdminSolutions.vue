@@ -61,6 +61,7 @@
           </tr>
         </tbody>
       </table></div>
+    </div>
 
     <!-- Modal formulaire -->
     <Teleport to="body">
