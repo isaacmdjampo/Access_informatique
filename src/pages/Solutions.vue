@@ -1,11 +1,11 @@
-<template>
+﻿<template>
   <div class="solutions-page">
     <!-- HERO SECTION -->
-    <section class="solutions-hero relative pt-20 pb-16 overflow-hidden bg-white">
+    <section class="solutions-hero relative pt-14 pb-10 overflow-hidden bg-white">
       <div class="hero-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
       <div
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none"
-        style="background: radial-gradient(circle, rgba(34, 197, 94, 0.07) 0%, transparent 70%)"
+        style="background: radial-gradient(circle, rgba(22, 96, 48, 0.07) 0%, transparent 70%)"
         aria-hidden="true"
       ></div>
       <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
@@ -21,7 +21,7 @@
           Nos solutions logicielles
         </div>
         <h1
-          class="hero-title text-5xl md:text-7xl font-black text-slate-900 leading-[0.95] tracking-tight mb-6"
+          class="hero-title text-3xl sm:text-5xl md:text-7xl font-black text-slate-900 leading-[0.95] tracking-tight mb-10"
         >
           Des outils conçus<br />
           <span class="hero-gradient-green">pour vos métiers.</span>
@@ -37,14 +37,14 @@
     </section>
 
     <!-- FILTRES PAR CATÉGORIE -->
-    <section class="py-8 bg-white top-[64px] z-20 border-b border-slate-100 shadow-sm">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="flex flex-wrap gap-2 justify-center">
+    <section class="py-5 bg-white sticky top-[56px] z-20 border-b border-slate-100 shadow-sm">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide justify-start md:justify-center md:flex-wrap">
           <button
             v-for="cat in categories"
             :key="cat.id"
             @click="activeCategory = cat.id"
-            class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200"
+            class="px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 whitespace-nowrap flex-shrink-0"
             :class="
               activeCategory === cat.id
                 ? 'bg-green-600 text-white shadow-md shadow-green-600/25'
@@ -121,7 +121,7 @@
               </div>
 
               <!-- Bouton -->
-              <div class="border-t border-slate-100 mt-6 pt-6">
+              <div class="border-t border-slate-100 mt-6 pt-5">
                 <router-link
                   :to="solution.route"
                   class="group/btn inline-flex items-center gap-2 w-full justify-center px-6 py-3.5 rounded-xl font-semibold text-sm bg-green-600 hover:bg-green-500 text-white shadow-md shadow-green-600/20 hover:shadow-green-500/40 transition-all duration-200 hover:-translate-y-0.5"
@@ -147,21 +147,21 @@
         </TransitionGroup>
 
         <!-- État vide -->
-        <div v-if="filteredSolutions.length === 0" class="text-center py-24">
-          <div class="text-5xl mb-4">🔍</div>
+        <div v-if="filteredSolutions.length === 0" class="text-center py-14">
+          <div class="text-5xl mb-10">🔍</div>
           <p class="text-slate-500 text-lg">Aucune solution dans cette catégorie pour le moment.</p>
         </div>
       </div>
     </section>
 
     <!-- SECTION ACCOMPAGNEMENT -->
-    <section class="py-24 bg-white">
+    <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-6">
         <div class="text-center mb-14">
           <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
             Pourquoi nous choisir
           </p>
-          <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
             Au-delà du logiciel
           </h2>
           <p class="text-slate-500 mt-4 max-w-xl mx-auto">
@@ -176,7 +176,7 @@
             :key="feature.title"
             class="flex flex-col p-8 rounded-2xl bg-white border border-slate-100 hover:border-green-100 hover:shadow-lg hover:shadow-green-50 transition-all duration-300 hover:-translate-y-1"
           >
-            <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mb-6">
+            <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center mb-10">
               <component :is="feature.icon" class="w-6 h-6 text-green-600" />
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-3">{{ feature.title }}</h3>
@@ -187,7 +187,7 @@
     </section>
 
     <!-- CTA BANDE FINALE -->
-    <section class="py-24 bg-green-600 relative overflow-hidden">
+    <section class="py-16 bg-green-600 relative overflow-hidden">
       <div
         class="absolute inset-0 pointer-events-none"
         style="
@@ -200,7 +200,7 @@
         aria-hidden="true"
       ></div>
       <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-6">
+        <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-10">
           Une question sur<br />
           <span class="text-white/85">l'une de nos solutions ?</span>
         </h2>
@@ -241,15 +241,76 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { categories, solutions, whyUs } from '@/data/solutionsData'
+import { ref, computed, onMounted } from 'vue'
+import { whyUs } from '@/data/solutionsData'
+import {
+  IconHospital, IconSchool, IconChart, IconUsers, IconHome, IconHandshake,
+} from '@/data/icons'
+import api from '@/services/api'
 
+// Mapping catégorie connue → id + icône
+const CATEGORY_MAP = {
+  'Santé':              { id: 'sante',     icon: IconHospital  },
+  'Éducation':          { id: 'education', icon: IconSchool    },
+  'Comptabilité':       { id: 'compta',    icon: IconChart     },
+  'Ressources Humaines':{ id: 'rh',        icon: IconUsers     },
+  'Immobilier':         { id: 'immo',      icon: IconHome      },
+  'Collectivités':      { id: 'asso',      icon: IconHandshake },
+  'Associations':       { id: 'asso',      icon: IconHandshake },
+}
+const CARD_STYLE = 'background: rgba(237,249,235,0.95); color: #166030; border-color: rgba(22,96,48,0.25);'
+
+const solutions      = ref([])
+const isLoading      = ref(true)
 const activeCategory = ref('all')
 
-// Filtrage des solutions en fonction de la catégorie active
+// Catégories générées dynamiquement depuis les solutions chargées
+// → toute nouvelle catégorie ajoutée en admin apparaît automatiquement
+const categories = computed(() => {
+  const seen = new Set()
+  const list = [{ id: 'all', label: 'Tous les logiciels', icon: null }]
+  for (const s of solutions.value) {
+    if (!seen.has(s.categoryId)) {
+      seen.add(s.categoryId)
+      list.push({ id: s.categoryId, label: s.category, icon: s.categoryIcon })
+    }
+  }
+  return list
+})
+
+onMounted(async () => {
+  try {
+    const { data } = await api.get('/solutions')
+    solutions.value = data.map((s) => {
+      // Catégories connues → id + icône prédéfinis
+      // Catégories inconnues → id généré depuis le texte, pas d'icône
+      const known = CATEGORY_MAP[s.category]
+      const catId = known ? known.id : s.category.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+      return {
+        id:               s.id,
+        name:             s.name,
+        category:         s.category,
+        categoryId:       catId,
+        categoryIcon:     known?.icon ?? null,
+        categoryStyle:    CARD_STYLE,
+        tagline:          s.tagline,
+        shortDescription: s.short_description,
+        image:            s.hero_image,
+        tags:             s.tags ?? [],
+        route:            `/solutions/${s.slug}`,
+      }
+    })
+  } catch {
+    const local = await import('@/data/solutionsData')
+    solutions.value = local.solutions
+  } finally {
+    isLoading.value = false
+  }
+})
+
 const filteredSolutions = computed(() => {
-  if (activeCategory.value === 'all') return solutions
-  return solutions.filter((s) => s.categoryId === activeCategory.value)
+  if (activeCategory.value === 'all') return solutions.value
+  return solutions.value.filter((s) => s.categoryId === activeCategory.value)
 })
 </script>
 
@@ -263,7 +324,7 @@ const filteredSolutions = computed(() => {
 }
 
 .hero-gradient-green {
-  color: #16a34a;
+  color: #166030;
   font-weight: 700;
 }
 
@@ -305,7 +366,7 @@ const filteredSolutions = computed(() => {
 /* Card hover glow */
 .solution-card:hover {
   box-shadow:
-    0 20px 60px rgba(34, 197, 94, 0.08),
+    0 20px 60px rgba(22, 96, 48, 0.08),
     0 8px 24px rgba(0, 0, 0, 0.06);
 }
 

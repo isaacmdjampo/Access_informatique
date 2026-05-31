@@ -1,0 +1,17 @@
+{
+    "name": "access-informatique/backend",
+    "description": "Backend API REST PHP pour Access Informatique",
+    "type": "project",
+    "require": {
+        "php": ">=8.0",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "includes/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

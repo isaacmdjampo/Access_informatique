@@ -1,17 +1,17 @@
-<template>
+﻿<template>
   <div class="apropos-page bg-white overflow-hidden">
     <!-- HERO  -->
-    <section class="relative min-h-screen flex items-center bg-white overflow-hidden">
+    <section class="relative flex items-center bg-white overflow-hidden pt-14 pb-10">
       <!-- GRID -->
       <div class="hero-grille absolute inset-0"></div>
 
       <!-- HALO -->
       <div
         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full pointer-events-none"
-        style="background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%)"
+        style="background: radial-gradient(circle, rgba(22, 96, 48, 0.08) 0%, transparent 70%)"
       ></div>
 
-      <div class="relative z-10 max-w-7xl mx-auto px-6 py-32">
+      <div class="relative z-10 max-w-7xl mx-auto px-6 py-16">
         <div class="max-w-4xl mx-auto text-center">
           <!-- BADGE -->
           <div
@@ -23,7 +23,7 @@
 
           <!-- TITRE -->
           <h1
-            class="hero-title text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[0.95] mb-8"
+            class="hero-title text-3xl sm:text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[0.95] mb-8"
           >
             Nous développons<br />
             <span class="texte-degrade-green"> des solutions utiles. </span>
@@ -31,7 +31,7 @@
 
           <!-- TEXTE -->
           <p
-            class="hero-copy text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mb-12 mx-auto"
+            class="hero-copy text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mb-10 mx-auto"
           >
             Depuis plus de 20 ans, Access Informatique accompagne les entreprises, écoles,
             cliniques, mutuelles et institutions avec des logiciels conçus spécialement pour leurs
@@ -66,15 +66,15 @@
     </section>
 
     <!-- SECTION PRESENTATION -->
-    <section class="py-28 bg-white">
+    <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-10 lg:gap-20 items-center">
           <!-- TEXTE -->
           <div>
             <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
               Notre présentation
             </p>
-            <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-8">
+            <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-8">
               Une expertise construite sur le terrain.
             </h2>
             <div class="space-y-6 text-slate-500 text-lg leading-relaxed">
@@ -136,13 +136,13 @@
     </section>
 
     <!-- SECTION LOGICIELS -->
-    <section class="py-28 bg-slate-50">
+    <section class="py-16 bg-slate-50">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-20">
+        <div class="text-center mb-10">
           <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
             Nos logiciels
           </p>
-          <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
             Des solutions conçues<br />
             pour chaque métier.
           </h2>
@@ -179,8 +179,8 @@
               <p class="text-slate-500 leading-relaxed mb-8">
                 {{ logiciel.description }}
               </p>
-              <div>
-                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
+              <div v-if="logiciel.references && logiciel.references.length">
+                <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wider mb-10">
                   Structures utilisatrices
                 </h4>
                 <div class="flex flex-wrap gap-2">
@@ -193,6 +193,16 @@
                   </span>
                 </div>
               </div>
+              <router-link
+                v-else
+                :to="`/solutions/${logiciel.slug}`"
+                class="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold text-sm transition-colors"
+              >
+                Voir les détails
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </router-link>
             </div>
           </div>
         </div>
@@ -200,12 +210,12 @@
     </section>
 
     <!-- REFERENCES -->
-    <section class="py-28 bg-white overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
+    <section class="py-16 bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 mb-8 text-center">
         <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
           Nos références
         </p>
-        <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+        <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
           Ils nous font confiance.
         </h2>
         <p class="text-slate-500 text-lg mt-5 max-w-2xl mx-auto">
@@ -223,7 +233,7 @@
             <img
               :src="reference.logo"
               :alt="reference.nom"
-              class="max-h-16 object-contain opacity-70 group-hover:opacity-100 transition-all duration-300"
+              class="max-h-20 object-contain transition-all duration-300"
             />
           </div>
         </div>
@@ -231,7 +241,7 @@
     </section>
 
     <!-- CTA FINAL (modifié : vert) -->
-    <section class="py-28 bg-green-600 relative overflow-hidden">
+    <section class="py-16 bg-green-600 relative overflow-hidden">
       <div
         class="absolute inset-0"
         style="
@@ -240,7 +250,7 @@
       ></div>
 
       <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight mb-6">
+        <h2 class="text-2xl sm:text-4xl md:text-6xl font-black text-white tracking-tight leading-tight mb-10">
           Construisons ensemble<br />
           votre futur digital.
         </h2>
@@ -267,14 +277,41 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import {
-  listeLogiciels as listeLogicielsData,
-  listeReferences as listeReferencesData,
-} from '@/data/aboutData'
+import { ref, onMounted } from 'vue'
+import api from '@/services/api'
 
-const listeLogiciels = ref(listeLogicielsData)
-const listeReferences = ref(listeReferencesData)
+const listeLogiciels  = ref([])
+const listeReferences = ref([])
+
+onMounted(async () => {
+  // --- Solutions depuis l'API ---
+  try {
+    const { data } = await api.get('/solutions')
+    listeLogiciels.value = data.map((s) => ({
+      nom:         s.name,
+      categorie:   s.category,
+      description: s.short_description,
+      image:       s.hero_image,
+      slug:        s.slug,
+      references:  [],        // non stocké en API, masqué si vide
+    }))
+  } catch {
+    const { listeLogiciels: local } = await import('@/data/aboutData')
+    listeLogiciels.value = local
+  }
+
+  // --- Partenaires depuis l'API ---
+  try {
+    const { data } = await api.get('/partners')
+    listeReferences.value = data.map((p) => ({
+      nom:  p.name,
+      logo: p.logo_url,
+    }))
+  } catch {
+    const { listeReferences: local } = await import('@/data/aboutData')
+    listeReferences.value = local
+  }
+})
 </script>
 
 <style scoped>
@@ -288,7 +325,7 @@ const listeReferences = ref(listeReferencesData)
 
 /* TEXTE VERT (couleur bouton) */
 .texte-degrade-green {
-  color: #16a34a;
+  color: #166030;
   font-weight: 700;
 }
 

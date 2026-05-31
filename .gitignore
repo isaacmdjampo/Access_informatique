@@ -37,3 +37,16 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+# ── Backend — fichiers sensibles (JAMAIS versionner) ─────────
+backend/.env
+backend/vendor/
+
+# ── Uploads utilisateurs ──────────────────────────────────────
+backend/uploads/solutions/
+backend/uploads/partners/
+backend/uploads/formations/
+
+# ── Script admin à usage unique ──────────────────────────────
+# Supprimer après exécution : php database/setup_admin.php
+database/setup_admin.php

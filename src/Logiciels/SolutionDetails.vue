@@ -1,17 +1,17 @@
-<template>
+﻿<template>
   <div v-if="solution" class="solution-detail-page">
     <!-- HERO SECTION -->
-    <section class="relative pt-32 pb-0 overflow-hidden bg-white">
+    <section class="relative pt-20 pb-0 overflow-hidden bg-white">
       <div class="hero-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
       <div
         class="absolute top-0 right-0 w-[700px] h-[700px] rounded-full pointer-events-none"
-        style="background: radial-gradient(circle, #16a34a18 0%, transparent 70%)"
+        style="background: radial-gradient(circle, #16603018 0%, transparent 70%)"
         aria-hidden="true"
       ></div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-6">
         <!-- Fil d'ariane -->
-        <nav class="flex items-center gap-2 text-sm text-slate-400 mb-12 animate-fade-up">
+        <nav class="flex items-center gap-2 text-sm text-slate-400 mb-10 animate-fade-up">
           <router-link to="/" class="hover:text-slate-600 transition-colors">Accueil</router-link>
           <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -35,15 +35,15 @@
           <span class="font-semibold text-slate-700">{{ solution.name }}</span>
         </nav>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pb-24">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pb-16">
           <!-- Colonne gauche : texte + CTAs -->
           <div class="animate-fade-up">
             <!-- Badge catégorie -->
             <span
-              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6 border border-green-500/30"
-              style="background: #f0fdf4; color: #16a34a"
+              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-10 border border-green-500/30"
+              style="background: #f0faf4; color: #166030"
             >
-              <span class="w-1.5 h-1.5 rounded-full" style="background: #16a34a"></span>
+              <span class="w-1.5 h-1.5 rounded-full" style="background: #166030"></span>
               {{ solution.category }}
             </span>
 
@@ -55,7 +55,7 @@
             </h1>
 
             <!-- Tagline -->
-            <p class="text-lg md:text-xl font-semibold mb-5" style="color: #16a34a">
+            <p class="text-lg md:text-xl font-semibold mb-8" style="color: #166030">
               {{ solution.tagline }}
             </p>
 
@@ -71,7 +71,7 @@
                 :href="solution.brochureUrl"
                 download
                 class="group inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl font-bold text-sm text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-                style="background: #16a34a; box-shadow: 0 8px 24px #16a34a40"
+                style="background: #166030; box-shadow: 0 8px 24px #16603040"
               >
                 <svg
                   class="w-5 h-5 group-hover:-translate-y-0.5 transition-transform"
@@ -95,7 +95,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 class="group inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl font-bold text-sm border-2 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-                style="color: #16a34a; border-color: #16a34a"
+                style="color: #166030; border-color: #166030"
               >
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -140,16 +140,16 @@
               />
               <div
                 class="absolute inset-0 opacity-10 pointer-events-none"
-                style="background: linear-gradient(135deg, #16a34a 0%, transparent 60%)"
+                style="background: linear-gradient(135deg, #166030 0%, transparent 60%)"
               ></div>
             </div>
             <div
               class="absolute -bottom-8 -right-8 w-40 h-40 rounded-full -z-10 opacity-15"
-              style="background: #16a34a"
+              style="background: #166030"
             ></div>
             <div
               class="absolute -top-4 -left-4 w-20 h-20 rounded-full -z-10 opacity-10"
-              style="background: #16a34a"
+              style="background: #166030"
             ></div>
           </div>
         </div>
@@ -157,11 +157,11 @@
     </section>
 
     <!-- BARRE DE STATS -->
-    <section class="py-10 bg-slate-50 border-y border-slate-100">
+    <section class="py-16 bg-slate-50 border-y border-slate-100">
       <div class="max-w-5xl mx-auto px-6">
         <div class="grid grid-cols-3 gap-6 text-center divide-x divide-slate-200">
           <div v-for="stat in solution.stats" :key="stat.label" class="px-4">
-            <p class="text-3xl md:text-4xl font-black" style="color: #16a34a">
+            <p class="text-3xl md:text-4xl font-black" style="color: #166030">
               {{ stat.value }}
             </p>
             <p class="text-sm text-slate-500 mt-1 font-medium">{{ stat.label }}</p>
@@ -171,18 +171,18 @@
     </section>
 
     <!-- DESCRIPTION + AVANTAGES -->
-    <section class="py-24 bg-white">
+    <section class="py-14 bg-white">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div>
-            <p class="text-xs font-bold tracking-[0.2em] uppercase mb-3" style="color: #16a34a">
+            <p class="text-xs font-bold tracking-[0.2em] uppercase mb-3" style="color: #166030">
               À propos
             </p>
             <h2
-              class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-6 leading-tight"
+              class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-10 leading-tight"
             >
               Pourquoi choisir<br />
-              <span style="color: #16a34a">{{ solution.name }} ?</span>
+              <span style="color: #166030">{{ solution.name }} ?</span>
             </h2>
             <p class="text-slate-600 leading-relaxed text-base mb-8">
               {{ solution.fullDescription }}
@@ -190,7 +190,7 @@
             <router-link
               to="/contact"
               class="inline-flex items-center gap-2 font-semibold text-sm transition-all hover:gap-3"
-              style="color: #16a34a"
+              style="color: #166030"
             >
               Parler à un expert
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -204,8 +204,8 @@
             </router-link>
           </div>
 
-          <div class="rounded-2xl p-8 border" style="background: #f0fdf4; border-color: #16a34a22">
-            <h3 class="text-lg font-black text-slate-900 mb-6">✦ Les points forts</h3>
+          <div class="rounded-2xl p-8 border" style="background: #f0faf4; border-color: #16603022">
+            <h3 class="text-lg font-black text-slate-900 mb-10">✦ Les points forts</h3>
             <ul class="space-y-5">
               <li
                 v-for="advantage in solution.advantages"
@@ -214,7 +214,7 @@
               >
                 <span
                   class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                  style="background: #16a34a"
+                  style="background: #166030"
                 >
                   <svg
                     class="w-3.5 h-3.5 text-white"
@@ -241,10 +241,10 @@
     </section>
 
     <!-- GRILLE DES MODULES -->
-    <section class="py-24 bg-slate-50">
+    <section class="py-14 bg-slate-50">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
-          <p class="text-xs font-bold tracking-[0.2em] uppercase mb-3" style="color: #16a34a">
+        <div class="text-center mb-8">
+          <p class="text-xs font-bold tracking-[0.2em] uppercase mb-3" style="color: #166030">
             Fonctionnalités
           </p>
           <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
@@ -262,8 +262,8 @@
             class="module-card group bg-white rounded-2xl p-7 border border-slate-100 hover:border-transparent hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col"
           >
             <div
-              class="w-11 h-11 rounded-xl flex items-center justify-center mb-5 text-sm font-black flex-shrink-0 transition-transform group-hover:scale-110"
-              style="background: #f0fdf4; color: #16a34a"
+              class="w-11 h-11 rounded-xl flex items-center justify-center mb-8 text-sm font-black flex-shrink-0 transition-transform group-hover:scale-110"
+              style="background: #f0faf4; color: #166030"
             >
               {{ String(index + 1).padStart(2, '0') }}
             </div>
@@ -271,7 +271,7 @@
             <p class="text-slate-500 text-sm leading-relaxed flex-grow">{{ module.description }}</p>
             <div
               class="mt-5 h-0.5 w-0 group-hover:w-full rounded-full transition-all duration-400"
-              style="background: #16a34a"
+              style="background: #166030"
             ></div>
           </div>
         </div>
@@ -279,7 +279,7 @@
     </section>
 
     <!-- CTA BANDE FINALE -->
-    <section class="py-24 relative overflow-hidden" style="background: #16a34a">
+    <section class="py-14 relative overflow-hidden" style="background: #166030">
       <div
         class="absolute inset-0 pointer-events-none"
         style="
@@ -297,11 +297,11 @@
       ></div>
 
       <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-4">
+        <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight mb-10">
           Prêt à démarrer<br />
           <span class="text-white/80">avec {{ solution.name }} ?</span>
         </h2>
-        <p class="text-white/75 text-lg max-w-xl mx-auto mb-12">
+        <p class="text-white/75 text-lg max-w-xl mx-auto mb-10">
           Téléchargez notre documentation ou contactez notre équipe pour une démonstration
           personnalisée et gratuite.
         </p>
@@ -311,7 +311,7 @@
             :href="solution.brochureUrl"
             download
             class="group inline-flex items-center justify-center gap-3 px-10 py-4 rounded-xl bg-white font-bold text-sm transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-black/20 hover:shadow-xl"
-            style="color: #16a34a"
+            style="color: #166030"
           >
             <svg
               class="w-5 h-5 group-hover:-translate-y-0.5 transition-transform"
@@ -374,7 +374,7 @@
     <router-link
       to="/solutions"
       class="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-green-600/25"
-      style="background: #16a34a; color: white"
+      style="background: #166030; color: white"
     >
       ← Retour aux solutions
     </router-link>
@@ -382,12 +382,49 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { getSolutionBySlug } from '@/data/solutionsDetailData'
+import api from '@/services/api'
 
-const route = useRoute()
-const solution = computed(() => getSolutionBySlug(route.params.slug))
+const route    = useRoute()
+const solution = ref(null)
+const isLoading = ref(true)
+const error     = ref(null)
+
+async function fetchSolution(slug) {
+  isLoading.value = true
+  error.value     = null
+  try {
+    const { data } = await api.get(`/solutions/${slug}`)
+    // Transformer snake_case → camelCase pour garder la compatibilité du template
+    solution.value = {
+      ...data,
+      heroImage:        data.hero_image,
+      shortDescription: data.short_description,
+      fullDescription:  data.full_description,
+      brochureUrl:      data.brochure_url,
+      demoUrl:          data.demo_url,
+      accentColor:      data.accent_color,
+      accentColorLight: data.accent_color_light,
+    }
+  } catch (e) {
+    // Fallback sur les données locales si l'API est indisponible
+    try {
+      const { getSolutionBySlug } = await import('@/data/solutionsDetailData')
+      solution.value = getSolutionBySlug(slug)
+    } catch {
+      error.value = 'Solution introuvable.'
+      solution.value = null
+    }
+  } finally {
+    isLoading.value = false
+  }
+}
+
+onMounted(() => fetchSolution(route.params.slug))
+
+// Recharge si le slug change (navigation entre solutions)
+watch(() => route.params.slug, (newSlug) => { if (newSlug) fetchSolution(newSlug) })
 </script>
 
 <style scoped>

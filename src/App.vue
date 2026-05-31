@@ -1,7 +1,7 @@
-<template>
+﻿<template>
   <div class="min-h-screen flex flex-col bg-white">
-    <!-- HEADER / NAVIGATION -->
-    <nav
+    <!-- HEADER / NAVIGATION (masqué sur les routes /admin) -->
+    <nav v-if="!isAdmin"
       class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out"
       :class="
         scrolled
@@ -19,29 +19,14 @@
               class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]"
             >
               <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-              Bienvenue chez Access Informatique
+              <span class="hidden sm:inline">Bienvenue chez</span> Access Informatique
             </span>
+            <span class="hidden md:inline text-white font-semibold">|</span>
+            <a :href="`mailto:${email}`" class="hidden md:inline text-white hover:text-white/80 transition-colors duration-200">{{ email }}</a>
+            <span class="hidden md:inline text-white font-semibold">|</span>
+            <a :href="`tel:${phone1.replace(/\s|\(|\)/g, '')}`" class="text-white hover:text-white/80 transition-colors duration-200 text-xs">{{ phone1 }}</a>
             <span class="hidden sm:inline text-white font-semibold">|</span>
-            <a
-              href="mailto:info@accessinformatique.com"
-              class="text-white hover:text-white/80 transition-colors duration-200"
-            >
-              info@accessinformatique.com
-            </a>
-            <span class="hidden sm:inline text-white font-semibold">|</span>
-            <a
-              href="tel:+2250101573054"
-              class="text-white hover:text-white/80 transition-colors duration-200"
-            >
-              (+225) 01 01 57 30 54
-            </a>
-            <span class="hidden sm:inline text-white font-semibold">|</span>
-            <a
-              href="tel:+2250707261858"
-              class="text-white hover:text-white/80 transition-colors duration-200"
-            >
-              (+225) 07 07 26 18 58
-            </a>
+            <a :href="`tel:${phone2.replace(/\s|\(|\)/g, '')}`" class="hidden sm:inline text-white hover:text-white/80 transition-colors duration-200 text-xs">{{ phone2 }}</a>
           </div>
           <div
             class="flex flex-wrap items-center justify-center gap-3 text-xs font-semibold uppercase tracking-[0.18em]"
@@ -176,23 +161,22 @@
     <!-- =========================================================
          CONTENU PRINCIPAL
          ========================================================= -->
-    <main class="flex-1 pt-32">
+    <main :class="isAdmin ? 'flex-1' : 'flex-1 pt-14'">
       <router-view />
     </main>
 
     <!-- =========================================================
-         FOOTER
+         FOOTER (masqué sur les routes /admin)
          ========================================================= -->
-    <footer class="bg-slate-950 text-slate-400">
+    <footer v-if="!isAdmin" class="bg-slate-950 text-slate-400">
       <!-- Contenu principal du footer -->
-      <div class="max-w-7xl mx-auto px-6 py-16">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div class="max-w-7xl mx-auto px-6 py-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           <!-- Colonne 1 : Marque -->
           <div class="md:col-span-2 space-y-4">
             <img :src="logoUrl" alt="Access Informatique" class="h-9 w-auto brightness-0 invert" />
             <p class="text-sm leading-relaxed max-w-xs">
-              Éditeur de solutions de gestion sur mesure pour les entreprises, institutions et
-              professionnels de Côte d'Ivoire et d'Afrique.
+              {{ footerTagline }}
             </p>
             <!-- Réseaux sociaux -->
             <div class="flex gap-3 pt-2">
@@ -245,26 +229,26 @@
               <li class="flex items-start gap-2.5">
                 <span class="mt-0.5 text-green-500 flex-shrink-0">✉</span>
                 <a
-                  href="mailto:info@accessinformatique.com"
+                  :href="`mailto:${email}`"
                   class="hover:text-white transition-colors break-all"
                 >
-                  info@accessinformatique.com
+                  {{ email }}
                 </a>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-green-500 flex-shrink-0">✆</span>
-                <span>(+225) 01 01 57 30 54</span>
+                <span>{{ phone1 }}</span>
               </li>
               <li class="flex items-center gap-2.5">
                 <span class="text-green-500 flex-shrink-0">✆</span>
-                <span>(+225) 07 07 26 18 58</span>
+                <span>{{ phone2 }}</span>
               </li>
               <li class="flex items-start gap-2.5 pt-1">
                 <span class="mt-0.5 text-green-500 flex-shrink-0">◎</span>
-                <span>Yopougon Sable, Andokoi<br />Abidjan, Côte d'Ivoire</span>
+                <span>{{ footerAddress }}</span>
               </li>
               <li class="flex items-center gap-2.5 text-xs text-slate-500 pt-1">
-                <span>Lun–Ven : 08h–18h · Sam : 09h–13h</span>
+                <span>{{ footerHours }}</span>
               </li>
             </ul>
           </div>
@@ -292,8 +276,25 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useRoute } from 'vue-router'
 import logoUrl from './assets/images/logo.png'
+import { useContentStore } from '@/stores/content'
+
+// ─── Détecte les routes admin pour masquer le header/footer public ────────────
+const route = useRoute()
+const isAdmin = computed(() => route.path.startsWith('/admin'))
+
+// ─── Contenus globaux dynamiques (email, téléphone, adresse…) ─────────────────
+const contentStore = useContentStore()
+onMounted(() => contentStore.load('global'))
+
+const email  = computed(() => contentStore.get('global', 'header.email',  'info@accessinformatique.com'))
+const phone1 = computed(() => contentStore.get('global', 'header.phone1', '(+225) 01 01 57 30 54'))
+const phone2 = computed(() => contentStore.get('global', 'header.phone2', '(+225) 07 07 26 18 58'))
+const footerTagline = computed(() => contentStore.get('global', 'footer.tagline', "Éditeur de solutions de gestion sur mesure pour les entreprises, institutions et professionnels de Côte d'Ivoire et d'Afrique."))
+const footerAddress = computed(() => contentStore.get('global', 'footer.address', 'Yopougon Sable, Andokoi, Abidjan, Côte d\'Ivoire'))
+const footerHours   = computed(() => contentStore.get('global', 'footer.hours',   'Lun–Ven : 08h–18h · Sam : 09h–13h'))
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
 const navLinks = [

@@ -1,7 +1,7 @@
-<template>
+﻿<template>
   <div class="formation-list-page bg-white text-slate-900 min-h-screen">
     <!-- HERO avec recherche -->
-    <section class="relative pt-36 pb-20 overflow-hidden bg-gradient-to-br from-slate-50 to-white">
+    <section class="relative pt-14 pb-10 overflow-hidden bg-gradient-to-br from-slate-50 to-white">
       <div class="hero-grid absolute inset-0 pointer-events-none"></div>
 
       <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
@@ -25,11 +25,11 @@
           Retour aux formations
         </router-link>
 
-        <h1 class="text-4xl md:text-6xl font-black tracking-tight text-slate-900 mb-6">
+        <h1 class="text-2xl sm:text-4xl md:text-6xl font-black tracking-tight text-slate-900 mb-10">
           Toutes nos <span class="text-green-600">formations</span>
         </h1>
 
-        <p class="text-lg text-slate-500 max-w-2xl mx-auto mb-12">
+        <p class="text-lg text-slate-500 max-w-2xl mx-auto mb-10">
           Découvrez l'intégralité de notre catalogue et trouvez la formation qui correspond à vos
           objectifs.
         </p>
@@ -59,7 +59,7 @@
                 v-model="searchQuery"
                 type="text"
                 placeholder="Rechercher une formation... (ex: Big Data, Web, Design...)"
-                class="flex-1 py-5 pr-4 bg-transparent outline-none text-slate-800 placeholder-slate-400"
+                class="flex-1 py-16 pr-4 bg-transparent outline-none text-slate-800 placeholder-slate-400"
               />
 
               <button
@@ -143,12 +143,12 @@
     </section>
 
     <!-- Liste des formations -->
-    <section class="py-16 bg-white">
+    <section class="py-20 bg-white">
       <div class="max-w-7xl mx-auto px-6">
         <!-- Loader rapide au chargement initial -->
         <div v-if="isPageLoading" class="flex justify-center py-20">
           <div class="text-center">
-            <div class="relative w-16 h-16 mx-auto mb-4">
+            <div class="relative w-16 h-16 mx-auto mb-10">
               <div class="absolute inset-0 rounded-full border-4 border-slate-200"></div>
               <div
                 class="absolute inset-0 rounded-full border-4 border-green-600 border-t-transparent animate-spin"
@@ -183,17 +183,17 @@
             </div>
 
             <div class="p-8 flex flex-col flex-grow">
-              <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center justify-between mb-10">
                 <span class="text-xs uppercase tracking-widest text-green-600 font-bold">
                   {{ formation.category }}
                 </span>
               </div>
 
-              <h3 class="text-2xl font-black text-slate-900 mb-4 leading-tight">
+              <h3 class="text-2xl font-black text-slate-900 mb-10 leading-tight">
                 {{ formation.title }}
               </h3>
 
-              <p class="text-slate-500 leading-relaxed text-sm mb-6">
+              <p class="text-slate-500 leading-relaxed text-sm mb-10">
                 {{ formation.description }}
               </p>
 
@@ -239,7 +239,7 @@
             v-if="!isPageLoading && filteredFormations.length === 0 && !suggestion"
             class="text-center py-20"
           >
-            <div class="text-6xl mb-4">🔍</div>
+            <div class="text-6xl mb-10">🔍</div>
             <h3 class="text-2xl font-black text-slate-900 mb-2">Aucune formation trouvée</h3>
             <p class="text-slate-500">
               Essayez avec d'autres mots-clés comme "Web", "Design" ou "Data"
@@ -289,103 +289,82 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { formations } from '@/data/formations'
+import api from '@/services/api'
 
-const searchQuery = ref('')
+const searchQuery  = ref('')
 const isPageLoading = ref(true)
+const formations   = ref([])
 
-const normalize = (str) => {
-  return str
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-}
+// \u2500\u2500 Chargement depuis l'API \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+onMounted(async () => {
+  try {
+    const { data } = await api.get('/formations')
+    // Mapper image_url \u2192 image pour garder la compatibilit\u00e9 avec le template
+    formations.value = data.map((f) => ({ ...f, image: f.image_url }))
+  } catch {
+    // Fallback sur les donn\u00e9es locales si l'API est indisponible
+    const local = await import('@/data/formations')
+    formations.value = local.formations
+  } finally {
+    isPageLoading.value = false
+  }
+})
+
+// \u2500\u2500 Recherche & filtrage \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+const normalize = (str) =>
+  str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 
 const getSimilarity = (str1, str2) => {
   const s1 = normalize(str1)
   const s2 = normalize(str2)
-
   if (s1 === s2) return 1
   if (s1.includes(s2) || s2.includes(s1)) return 0.8
-
   const words1 = s1.split(' ')
   const words2 = s2.split(' ')
-
   for (const w1 of words1) {
     for (const w2 of words2) {
-      if (w1 === w2 || w1.includes(w2) || w2.includes(w1)) {
-        if (w1.length > 3 || w2.length > 3) return 0.7
-      }
+      if ((w1 === w2 || w1.includes(w2) || w2.includes(w1)) && (w1.length > 3 || w2.length > 3))
+        return 0.7
     }
   }
-
   if (s1.length > 2 && s2.length > 2) {
-    let differences = 0
-    const minLen = Math.min(s1.length, s2.length)
-    for (let i = 0; i < minLen; i++) {
-      if (s1[i] !== s2[i]) differences++
-    }
-    differences += Math.abs(s1.length - s2.length)
-    if (differences <= 2) return 0.6
+    let diff = 0
+    const min = Math.min(s1.length, s2.length)
+    for (let i = 0; i < min; i++) { if (s1[i] !== s2[i]) diff++ }
+    diff += Math.abs(s1.length - s2.length)
+    if (diff <= 2) return 0.6
   }
-
   return 0
 }
 
 const isExactMatch = computed(() => {
   if (!searchQuery.value.trim()) return false
   const query = normalize(searchQuery.value)
-  return formations.some((f) => normalize(f.title) === query)
+  return formations.value.some((f) => normalize(f.title) === query)
 })
 
 const filteredFormations = computed(() => {
-  if (!searchQuery.value.trim()) return formations
-
+  if (!searchQuery.value.trim()) return formations.value
   const query = normalize(searchQuery.value)
-
-  return formations.filter((formation) => {
-    const title = normalize(formation.title)
-    const category = normalize(formation.category)
-    const skills = formation.skills.some((skill) => normalize(skill).includes(query))
-
-    return title.includes(query) || category.includes(query) || skills
+  return formations.value.filter((f) => {
+    const skills = (f.skills ?? []).some((s) => normalize(s).includes(query))
+    return normalize(f.title).includes(query) || normalize(f.category).includes(query) || skills
   })
 })
 
 const suggestion = computed(() => {
-  if (!searchQuery.value.trim()) return null
-  if (filteredFormations.value.length > 0) return null
-
+  if (!searchQuery.value.trim() || filteredFormations.value.length > 0) return null
   const query = normalize(searchQuery.value)
-  let bestMatch = null
-  let bestScore = 0
-
-  for (const formation of formations) {
-    const score = getSimilarity(query, normalize(formation.title))
-    if (score > bestScore && score > 0.35) {
-      bestScore = score
-      bestMatch = formation.title
-    }
+  let best = null, bestScore = 0
+  for (const f of formations.value) {
+    const score = getSimilarity(query, normalize(f.title))
+    if (score > bestScore && score > 0.35) { bestScore = score; best = f.title }
   }
-
-  return bestMatch
+  return best
 })
 
-const applySuggestion = () => {
-  if (suggestion.value) {
-    searchQuery.value = suggestion.value
-  }
-}
-
-const clearSearch = () => {
-  searchQuery.value = ''
-}
-
-onMounted(() => {
-  setTimeout(() => {
-    isPageLoading.value = false
-  }, 200)
-})
+const applySuggestion = () => { if (suggestion.value) searchQuery.value = suggestion.value }
+const clearSearch      = () => { searchQuery.value = '' }
 </script>
 
 <style scoped>

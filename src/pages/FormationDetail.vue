@@ -1,6 +1,6 @@
-<template>
+﻿<template>
   <div class="formation-detail-page bg-white text-slate-900 min-h-screen">
-    <section class="relative pt-40 pb-20 overflow-hidden bg-slate-50">
+    <section class="relative pt-20 pb-16 overflow-hidden bg-slate-50">
       <div class="hero-grid absolute inset-0 pointer-events-none"></div>
       <div class="relative z-10 max-w-6xl mx-auto px-6">
         <div class="text-center">
@@ -25,7 +25,7 @@
           </router-link>
         </div>
 
-        <div v-if="isLoading" class="py-24 text-center">
+        <div v-if="isLoading" class="py-14 text-center">
           <div
             class="inline-flex items-center justify-center w-16 h-16 rounded-full border-4 border-slate-200"
           >
@@ -37,8 +37,8 @@
         </div>
 
         <div v-else>
-          <div v-if="!formation" class="py-24 text-center">
-            <div class="text-6xl mb-4">🔍</div>
+          <div v-if="!formation" class="py-14 text-center">
+            <div class="text-6xl mb-10">🔍</div>
             <h1 class="text-3xl font-black text-slate-900 mb-3">Formation non trouvée</h1>
             <p class="text-slate-500 max-w-xl mx-auto">
               La formation recherchée est introuvable. Vérifie l'URL ou retourne à la liste des
@@ -57,12 +57,12 @@
               <img :src="formation.image" :alt="formation.title" class="w-full h-80 object-cover" />
               <div class="p-10">
                 <span
-                  class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 text-green-700 text-xs font-semibold uppercase tracking-[0.2em] mb-6"
+                  class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 text-green-700 text-xs font-semibold uppercase tracking-[0.2em] mb-10"
                 >
                   {{ formation.category }}
                 </span>
                 <h1 class="text-4xl font-black text-slate-900 mb-2">{{ formation.title }}</h1>
-                <div class="flex items-center justify-between mb-6 gap-4">
+                <div class="flex items-center justify-between mb-10 gap-4">
                   <p class="text-2xl font-extrabold text-green-600">{{ formation.price }}</p>
                   <p class="text-slate-500 text-sm">Niveau : {{ formation.level }}</p>
                 </div>
@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="mb-10">
-                  <p class="text-slate-500 text-sm uppercase tracking-[0.2em] mb-4">
+                  <p class="text-slate-500 text-sm uppercase tracking-[0.2em] mb-10">
                     Compétences clés
                   </p>
                   <div class="flex flex-wrap gap-3">
@@ -98,7 +98,7 @@
                 </div>
 
                 <div v-if="outcomes.length" class="mb-10">
-                  <p class="text-slate-500 text-sm uppercase tracking-[0.2em] mb-4">
+                  <p class="text-slate-500 text-sm uppercase tracking-[0.2em] mb-10">
                     Objectifs de la formation
                   </p>
                   <ul class="grid gap-3">
@@ -131,7 +131,7 @@
 
             <div class="space-y-8">
               <div class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
-                <h2 class="text-3xl font-black text-slate-900 mb-4">Programme de la formation</h2>
+                <h2 class="text-3xl font-black text-slate-900 mb-10">Programme de la formation</h2>
                 <div class="space-y-4">
                   <div
                     v-for="(module, index) in modules"
@@ -153,7 +153,7 @@
               <div
                 class="rounded-[2rem] border border-slate-200 bg-green-600 p-8 text-white shadow-xl"
               >
-                <h3 class="text-3xl font-black mb-4">Pourquoi cette formation ?</h3>
+                <h3 class="text-3xl font-black mb-10">Pourquoi cette formation ?</h3>
                 <ul class="space-y-3 text-slate-100">
                   <li v-for="(benefit, index) in benefits" :key="index">✅ {{ benefit }}</li>
                 </ul>
@@ -169,61 +169,43 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { formations } from '@/data/formations'
+import api from '@/services/api'
 
-const route = useRoute()
-const router = useRouter()
+const route     = useRoute()
+const router    = useRouter()
 const formation = ref(null)
 const isLoading = ref(true)
 
+// Valeurs par défaut affichées si la formation n'a pas encore de modules/bénéfices
 const defaultModules = [
-  {
-    title: 'Introduction à la formation',
-    description: 'Comprendre les objectifs, le plan de cours et les résultats attendus.',
-    duration: '1 semaine',
-  },
-  {
-    title: 'Travail pratique',
-    description: 'Mise en application des connaissances au travers d’exercices concrets.',
-    duration: '2 semaines',
-  },
-  {
-    title: 'Approfondissement',
-    description: 'Perfectionnement sur les outils et les bonnes pratiques du métier.',
-    duration: '2 semaines',
-  },
-  {
-    title: 'Projet final',
-    description: 'Réalisation d’un projet complet avec suivi et retours personnalisés.',
-    duration: '2 semaines',
-  },
+  { title: 'Introduction', description: 'Objectifs et plan de cours.', duration: '1 semaine' },
+  { title: 'Pratique',     description: 'Exercices et mise en application.', duration: '2 semaines' },
+  { title: 'Projet final', description: 'Réalisation d\'un projet complet.', duration: '2 semaines' },
+]
+const defaultBenefits = [
+  'Contenu orienté projet',
+  'Support et accompagnement dédiés',
+  'Certification professionnelle',
 ]
 
-const modules = computed(() => formation.value?.modules ?? defaultModules)
-const benefits = computed(
-  () =>
-    formation.value?.benefits ?? [
-      'Contenu orienté projet',
-      'Support et accompagnement dédiés',
-      'Certification professionnelle',
-      'Accès aux ressources pédagogiques',
-    ],
-)
+const modules  = computed(() => formation.value?.modules?.length  ? formation.value.modules  : defaultModules)
+const benefits = computed(() => formation.value?.benefits?.length ? formation.value.benefits : defaultBenefits)
 const outcomes = computed(() => formation.value?.outcomes ?? [])
 
-const loadFormation = () => {
-  const slug = route.params.slug
-  formation.value = formations.find((item) => item.slug === slug) ?? null
-}
-
 const goBack = () => router.push({ name: 'formations' })
-const goContact = () => router.push({ name: 'contact' })
 
-onMounted(() => {
-  setTimeout(() => {
-    loadFormation()
+onMounted(async () => {
+  const slug = route.params.slug
+  try {
+    const { data } = await api.get(`/formations?slug=${slug}`)
+    // Le backend retourne image_url ; le template utilise formation.image
+    formation.value = { ...data, image: data.image_url }
+  } catch (err) {
+    // 404 → formation non trouvée (template affiche déjà le message adapté)
+    formation.value = null
+  } finally {
     isLoading.value = false
-  }, 200)
+  }
 })
 </script>
 

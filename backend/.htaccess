@@ -1,0 +1,42 @@
+# ============================================================
+# ACCESS INFORMATIQUE — BACKEND .htaccess
+# ============================================================
+
+Options -Indexes -MultiViews
+
+# ---- Moteur de réécriture ----
+RewriteEngine On
+RewriteBase /Access_Informatique/backend/
+
+# ---- Transmettre Authorization à PHP (mod_fcgid le bloque sinon) ----
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# ---- Sécurité : bloquer les fichiers sensibles ----
+<FilesMatch "\.(env|json|lock|log|sql|md|txt)$">
+    Require all denied
+</FilesMatch>
+
+# ---- Sécurité : bloquer l'accès direct aux dossiers sensibles ----
+RewriteRule ^includes/ - [F,L]
+RewriteRule ^vendor/   - [F,L]
+
+# ---- Routes avec slug (ex: /api/solutions/solumed) ----
+RewriteRule ^api/solutions/([a-z0-9\-]+)/?$   api/solutions/index.php?slug=$1   [QSA,L]
+RewriteRule ^api/formations/([a-z0-9\-]+)/?$  api/formations/index.php?slug=$1  [QSA,L]
+
+# ---- Route export CSV (ex: /api/admin/leads/export/contact) ----
+RewriteRule ^api/admin/leads/export/([a-z]+)/?$  api/admin/leads/export.php?type=$1  [QSA,L]
+
+# ---- Fichiers sans extension → ajoute .php ----
+RewriteCond %{REQUEST_FILENAME}      !-f
+RewriteCond %{REQUEST_FILENAME}      !-d
+RewriteCond %{REQUEST_FILENAME}.php   -f
+RewriteRule ^(.+)$  $1.php  [QSA,L]
+
+# ---- En-têtes de sécurité HTTP (sans CORS — géré par PHP) ----
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options        "DENY"
+    Header always set X-XSS-Protection      "1; mode=block"
+    Header always set Referrer-Policy        "strict-origin-when-cross-origin"
+</IfModule>

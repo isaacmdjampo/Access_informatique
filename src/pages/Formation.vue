@@ -1,11 +1,11 @@
-<template>
+﻿<template>
   <div class="formation-page bg-white text-slate-900 overflow-hidden">
-    <section class="relative pt-36 pb-24 overflow-hidden bg-white">
+    <section class="relative pt-20 pb-16 overflow-hidden bg-white">
       <div class="hero-grid absolute inset-0 pointer-events-none"></div>
 
       <div
         class="absolute -top-20 right-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-20"
-        style="background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, transparent 70%)"
+        style="background: radial-gradient(circle, rgba(22, 96, 48, 0.25) 0%, transparent 70%)"
       ></div>
 
       <div
@@ -23,7 +23,7 @@
           </div>
 
           <h1
-            class="hero-title text-5xl md:text-7xl font-black tracking-tight leading-[0.95] text-slate-900"
+            class="hero-title text-3xl sm:text-5xl md:text-7xl font-black tracking-tight leading-[0.95] text-slate-900"
           >
             Formez-vous aux métiers du
             <span class="text-green-600">numérique.</span>
@@ -75,22 +75,22 @@
           <div
             class="grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden rounded-3xl border border-green-100 bg-green-100 mt-14"
           >
-            <div class="bg-white px-6 py-6 text-center">
+            <div class="bg-white px-6 py-5 text-center">
               <div class="text-3xl font-black text-green-600">+500</div>
               <div class="text-xs uppercase tracking-wider text-slate-500 mt-2">Apprenants</div>
             </div>
 
-            <div class="bg-white px-6 py-6 text-center">
+            <div class="bg-white px-6 py-5 text-center">
               <div class="text-3xl font-black text-green-600">15+</div>
               <div class="text-xs uppercase tracking-wider text-slate-500 mt-2">Formations</div>
             </div>
 
-            <div class="bg-white px-6 py-6 text-center">
+            <div class="bg-white px-6 py-5 text-center">
               <div class="text-3xl font-black text-green-600">100%</div>
               <div class="text-xs uppercase tracking-wider text-slate-500 mt-2">Pratique</div>
             </div>
 
-            <div class="bg-white px-6 py-6 text-center">
+            <div class="bg-white px-6 py-5 text-center">
               <div class="text-3xl font-black text-green-600">24h</div>
               <div class="text-xs uppercase tracking-wider text-slate-500 mt-2">Support</div>
             </div>
@@ -128,14 +128,14 @@
       </div>
     </section>
 
-    <section id="catalogue" class="py-10 bg-slate-50">
+    <section id="catalogue" class="py-16 bg-slate-50">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <p class="text-green-600 font-bold uppercase tracking-[0.2em] text-xs mb-4">
+        <div class="text-center max-w-3xl mx-auto mb-8">
+          <p class="text-green-600 font-bold uppercase tracking-[0.2em] text-xs mb-10">
             Nos formations
           </p>
 
-          <h2 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900">
+          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900">
             Choisissez votre parcours.
           </h2>
 
@@ -163,17 +163,17 @@
             </div>
 
             <div class="p-8 flex flex-col flex-grow">
-              <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center justify-between mb-10">
                 <span class="text-xs uppercase tracking-widest text-green-600 font-bold">
                   {{ formation.category }}
                 </span>
               </div>
 
-              <h3 class="text-2xl font-black text-slate-900 mb-4 leading-tight">
+              <h3 class="text-2xl font-black text-slate-900 mb-10 leading-tight">
                 {{ formation.title }}
               </h3>
 
-              <p class="text-slate-500 leading-relaxed text-sm mb-6">
+              <p class="text-slate-500 leading-relaxed text-sm mb-10">
                 {{ formation.description }}
               </p>
 
@@ -214,10 +214,10 @@
         </div>
 
         <!-- BOUTON VOIR TOUTES LES FORMATIONS -->
-        <div class="flex justify-center mt-16">
+        <div class="flex justify-center mt-5">
           <router-link
             :to="{ name: 'formations' }"
-            class="group inline-flex items-center justify-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-600 text-white font-black text-lg transition-all duration-300 shadow-xl shadow-green-600/30 hover:-translate-y-1 hover:shadow-2xl"
+            class="group inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-600 text-white font-black text-lg transition-all duration-300 shadow-xl shadow-green-600/30 hover:-translate-y-1 hover:shadow-2xl"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -246,15 +246,15 @@
       </div>
     </section>
 
-    <section class="py-24 bg-white">
+    <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="grid lg:grid-cols-2 gap-20 items-center">
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           <div>
-            <p class="text-green-600 uppercase tracking-[0.2em] text-xs font-bold mb-4">
+            <p class="text-green-600 uppercase tracking-[0.2em] text-xs font-bold mb-10">
               Notre méthode
             </p>
 
-            <h2 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight">
+            <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight">
               Une pédagogie moderne et immersive.
             </h2>
 
@@ -263,7 +263,7 @@
               et un accompagnement personnalisé.
             </p>
 
-            <div class="mt-12 space-y-8">
+            <div class="mt-4 space-y-8">
               <div class="flex gap-5">
                 <div
                   class="w-14 h-14 rounded-2xl bg-green-100 text-green-600 flex items-center justify-center font-black text-xl flex-shrink-0"
@@ -314,7 +314,7 @@
 
           <div class="relative">
             <div class="grid grid-cols-2 gap-6">
-              <div class="space-y-6 pt-16">
+              <div class="space-y-6 pt-20">
                 <div class="rounded-[2rem] overflow-hidden shadow-xl">
                   <img
                     src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop"
@@ -337,7 +337,7 @@
                     Access Informatique
                   </div>
 
-                  <h3 class="text-3xl font-black leading-tight mb-6">
+                  <h3 class="text-3xl font-black leading-tight mb-10">
                     Formez-vous avec des experts du terrain.
                   </h3>
 
@@ -360,25 +360,25 @@
       </div>
     </section>
 
-    <section class="py-24 bg-slate-950 text-white relative overflow-hidden">
+    <section class="py-16 bg-slate-950 text-white relative overflow-hidden">
       <div
         class="absolute inset-0 opacity-20"
         style="
           background: radial-gradient(
             circle at center,
-            rgba(34, 197, 94, 0.25) 0%,
+            rgba(22, 96, 48, 0.25) 0%,
             transparent 60%
           );
         "
       ></div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <div class="text-center max-w-3xl mx-auto mb-20">
-          <p class="text-green-400 uppercase tracking-[0.2em] text-xs font-bold mb-4">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <p class="text-green-400 uppercase tracking-[0.2em] text-xs font-bold mb-10">
             Flexibilité
           </p>
 
-          <h2 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
             Des formats adaptés à tous.
           </h2>
         </div>
@@ -393,7 +393,7 @@
               💻
             </div>
 
-            <h3 class="text-2xl font-black mb-4">En ligne</h3>
+            <h3 class="text-2xl font-black mb-10">En ligne</h3>
 
             <p class="text-white/70 leading-relaxed">
               Suivez vos cours depuis n'importe où avec des contenus accessibles 24h/24.
@@ -409,7 +409,7 @@
               🏫
             </div>
 
-            <h3 class="text-2xl font-black mb-4">Présentiel</h3>
+            <h3 class="text-2xl font-black mb-10">Présentiel</h3>
 
             <p class="text-white/70 leading-relaxed">
               Apprenez dans nos locaux avec un accompagnement direct de nos formateurs.
@@ -425,7 +425,7 @@
               🏢
             </div>
 
-            <h3 class="text-2xl font-black mb-4">Entreprise</h3>
+            <h3 class="text-2xl font-black mb-10">Entreprise</h3>
 
             <p class="text-white/70 leading-relaxed">
               Des programmes sur mesure pour renforcer les compétences de vos équipes.
@@ -435,7 +435,7 @@
       </div>
     </section>
 
-    <section class="py-24 bg-green-600 relative overflow-hidden">
+    <section class="py-16 bg-green-600 relative overflow-hidden">
       <div
         class="absolute inset-0 opacity-30"
         style="
@@ -448,7 +448,7 @@
       ></div>
 
       <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight">
+        <h2 class="text-2xl sm:text-4xl md:text-6xl font-black text-white tracking-tight leading-tight">
           Prêt à apprendre
           <br />
           les compétences du futur ?

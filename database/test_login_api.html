@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"><title>Test login API</title>
+<style>body{font-family:monospace;padding:24px}pre{background:#f4f4f4;padding:16px;border-radius:8px}</style>
+</head>
+<body>
+<h2>Test direct de l'API login</h2>
+<p>Ce test appelle le backend PHP sans passer par Vue.js.</p>
+<button onclick="testLogin()">▶ Tester la connexion admin</button>
+<pre id="result">En attente...</pre>
+
+<script>
+async function testLogin() {
+  const result = document.getElementById('result')
+  result.textContent = 'Envoi en cours...'
+
+  try {
+    const response = await fetch(
+      'http://localhost/Access_Informatique/backend/api/admin/login',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email:    'admin@accessinformatique.com',
+          password: 'Admin@Access2024!'
+        })
+      }
+    )
+
+    const data = await response.json()
+    result.textContent =
+      'Status HTTP : ' + response.status + '\n\n' +
+      JSON.stringify(data, null, 2)
+
+    if (response.ok && data.success) {
+      result.style.background = '#d1fae5'
+      result.textContent = '✅ CONNEXION RÉUSSIE !\n\n' + result.textContent
+    } else {
+      result.style.background = '#fee2e2'
+      result.textContent = '❌ CONNEXION ÉCHOUÉE\n\n' + result.textContent
+    }
+  } catch (e) {
+    result.style.background = '#fee2e2'
+    result.textContent = '❌ ERREUR RÉSEAU / CORS :\n' + e.message
+  }
+}
+</script>
+</body>
+</html>

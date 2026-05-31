@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+/* ============================================================
+   PALETTE VERTE PERSONNALISÉE — Access Informatique
+   Vert foncé (style charte Simba) — contraste blanc garanti
+   ============================================================ */
+@theme {
+  --color-green-50:  #f0faf4;
+  --color-green-100: #d9f0e3;
+  --color-green-200: #b0e0c5;
+  --color-green-300: #78c9a0;
+  --color-green-400: #40ac78;
+  --color-green-500: #22894e;
+  --color-green-600: #166030;   /* Couleur principale — vert foncé charte */
+  --color-green-700: #114c25;
+  --color-green-800: #0d391b;
+  --color-green-900: #082611;
+  --color-green-950: #041309;
+}

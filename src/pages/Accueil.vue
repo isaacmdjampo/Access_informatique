@@ -1,46 +1,21 @@
-<template>
+﻿<template>
   <div class="accueil">
-    <!-- SECTION 1 — HERO avec titre -->
-    <section
-      class="hero-section relative pt-32 pb-12 flex flex-col justify-center overflow-hidden bg-white"
-    >
-      <!-- Grille décorative en fond -->
-      <div class="hero-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+    <!-- SECTION 1 — SLIDER DES LOGICIELS (visible dès l'ouverture) -->
+    <section class="pt-14 pb-0 bg-white">
 
-      <!-- Halo lumineux central -->
-      <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style="background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%)"
-        aria-hidden="true"
-      ></div>
-
-      <!-- Contenu hero  -->
-      <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
-        <!-- Badge  -->
-        <div
-          class="hero-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/30 bg-green-500/10 text-green-600 text-xs font-semibold tracking-widest uppercase mb-8"
-        >
+      <!-- Badge centré au-dessus du slider -->
+      <!-- <div class="text-center py-16">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/30 bg-green-500/10 text-green-600 text-xs font-semibold tracking-widest uppercase">
           <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
           Éditeur de logiciels — Côte d'Ivoire
         </div>
+      </div> -->
 
-        <!-- Titre principal -->
-        <h1
-          class="hero-title text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 leading-[0.95] tracking-tight"
-        >
-          Des logiciels<br />
-          <span class="hero-gradient-green">taillés pour vous.</span>
-        </h1>
-      </div>
-    </section>
-
-    <!-- SECTION 2 — SLIDER DES LOGICIELS  -->
-    <section class="py-8 bg-white">
       <div class="w-full px-0">
         <!-- Slider pleine largeur -->
         <div class="relative w-full">
           <!-- Conteneur des slides -->
-          <div class="relative w-full h-[480px] md:h-[560px] overflow-hidden">
+          <div class="relative w-full h-65 sm:h-95 md:h-120 lg:h-140 overflow-hidden">
             <div
               v-for="(slide, index) in softwareSlides"
               :key="slide.id"
@@ -109,7 +84,7 @@
     </section>
 
     <!-- SECTION 3 — BOUTONS CTA  -->
-    <section class="py-12 bg-white">
+    <section class="py-16 bg-white">
       <div class="max-w-6xl mx-auto px-6 text-center">
         <div class="hero-ctas flex flex-col sm:flex-row gap-4 justify-center items-center">
           <router-link
@@ -141,8 +116,25 @@
       </div>
     </section>
 
+    <!-- SECTION 3B — TITRE PRINCIPAL -->
+    <section class="py-16 bg-white overflow-hidden">
+      <div class="relative max-w-6xl mx-auto px-6 text-center">
+        <div class="hero-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-green-500/30 bg-green-500/10 text-green-600 text-xs font-semibold tracking-widest uppercase mb-10">
+            <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+            Éditeur de logiciels — Côte d'Ivoire
+          </div>
+          <h1 class="hero-title text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 leading-[0.95] tracking-tight">
+            Des logiciels<br />
+            <span class="hero-gradient-green">taillés pour vous.</span>
+          </h1>
+        </div>
+      </div>
+    </section>
+
     <!-- SECTION 4 — TEXTE DE PRÉSENTATION -->
-    <section class="py-24 bg-slate-50">
+    <section class="py-16 bg-slate-50">
       <div class="max-w-4xl mx-auto px-6 text-center">
         <p class="text-lg md:text-xl text-slate-600 leading-relaxed">
           Access Informatique conçoit des solutions de gestion sur mesure pour les
@@ -153,7 +145,7 @@
 
         <!-- Indicateurs de confiance -->
         <div
-          class="hero-stats grid grid-cols-1 sm:grid-cols-3 gap-px bg-green-100 rounded-2xl overflow-hidden border border-green-200 max-w-2xl mx-auto mt-12"
+          class="hero-stats grid grid-cols-1 sm:grid-cols-3 gap-px bg-green-100 rounded-2xl overflow-hidden border border-green-200 max-w-2xl mx-auto mt-4"
         >
           <div class="bg-white px-8 py-5 text-center">
             <div class="text-3xl font-black text-green-600">+20</div>
@@ -174,13 +166,13 @@
     </section>
 
     <!-- SECTION 5 — CE QU'ON FAIT -->
-    <section class="py-24 bg-white">
+    <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16">
+        <div class="text-center mb-10">
           <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
             Notre expertise
           </p>
-          <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
             Pourquoi Access Informatique ?
           </h2>
         </div>
@@ -192,7 +184,7 @@
             class="pillar-card group p-8 rounded-2xl bg-white border border-slate-100 hover:border-green-100 hover:shadow-xl hover:shadow-green-50 transition-all duration-300 hover:-translate-y-1"
           >
             <div
-              class="w-12 h-12 rounded-xl bg-green-50 group-hover:bg-green-100 flex items-center justify-center mb-6 transition-colors duration-300"
+              class="w-12 h-12 rounded-xl bg-green-50 group-hover:bg-green-100 flex items-center justify-center mb-10 transition-colors duration-300"
             >
               <component :is="pillar.icon" class="w-6 h-6 text-green-600" />
             </div>
@@ -204,12 +196,12 @@
     </section>
 
     <!-- SECTION 6 — PARTENAIRES -->
-    <section class="py-24 bg-slate-50 overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 mb-12 text-center">
+    <section class="py-16 bg-slate-50 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 mb-8 text-center">
         <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
           Ils nous font confiance
         </p>
-        <h2 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+        <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
           Nos partenaires
         </h2>
         <p class="text-slate-500 mt-4 max-w-xl mx-auto">
@@ -227,18 +219,18 @@
           style="background: linear-gradient(to left, #f8fafc, transparent)"
         ></div>
 
-        <div class="partners-track flex gap-6 mb-6">
+        <div class="partners-track flex gap-6 mb-10">
           <div class="partners-list flex gap-6 animate-scroll-left">
             <a
               v-for="partner in [...partners, ...partners]"
               :key="`p1-${partner.id}`"
               :href="partner.url"
-              class="partner-logo flex-shrink-0 flex items-center justify-center w-64 h-32 rounded-2xl border border-slate-100 bg-white hover:border-green-200 hover:bg-green-50 hover:shadow-md transition-all duration-200 px-6 group"
+              class="partner-logo flex-shrink-0 flex items-center justify-center w-36 h-20 sm:w-52 sm:h-28 md:w-64 md:h-32 rounded-2xl border border-slate-100 bg-white hover:border-green-200 hover:bg-green-50 hover:shadow-md transition-all duration-200 px-3 md:px-6 group"
             >
               <img
                 :src="partner.logo"
                 :alt="partner.name"
-                class="max-h-14 max-w-full object-contain group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100"
+                class="max-h-20 max-w-full object-contain transition-all duration-300"
               />
             </a>
           </div>
@@ -250,12 +242,12 @@
               v-for="partner in [...partners, ...partners].reverse()"
               :key="`p2-${partner.id}`"
               :href="partner.url"
-              class="partner-logo flex-shrink-0 flex items-center justify-center w-48 h-24 rounded-2xl border border-slate-100 bg-white hover:border-green-200 hover:bg-green-50 hover:shadow-md transition-all duration-200 px-6 group"
+              class="partner-logo flex-shrink-0 flex items-center justify-center w-32 h-18 sm:w-44 sm:h-24 md:w-56 md:h-28 rounded-2xl border border-slate-100 bg-white hover:border-green-200 hover:bg-green-50 hover:shadow-md transition-all duration-200 px-3 md:px-6 group"
             >
               <img
                 :src="partner.logo"
                 :alt="partner.name"
-                class="max-h-14 max-w-full object-contain filter group-hover:grayscale-0 transition-all duration-300 opacity-60 group-hover:opacity-100"
+                class="max-h-18 max-w-full object-contain transition-all duration-300"
               />
             </a>
           </div>
@@ -264,7 +256,7 @@
     </section>
 
     <!-- SECTION 7 — BANDE CTA FINALE -->
-    <section class="py-24 bg-green-600 relative overflow-hidden">
+    <section class="py-16 bg-green-600 relative overflow-hidden">
       <div
         class="absolute inset-0 pointer-events-none"
         style="
@@ -278,7 +270,7 @@
       ></div>
 
       <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight mb-6">
+        <h2 class="text-2xl sm:text-4xl md:text-6xl font-black text-white tracking-tight leading-tight mb-10">
           Prêt à transformer<br />
           <span class="text-white/90"> votre gestion ? </span>
         </h2>
@@ -319,8 +311,55 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { softwareSlides, partners, pillars } from '@/data/homeData'
+import { pillars } from '@/data/homeData'
+import api from '@/services/api'
 
+// ── Slider : solutions chargées depuis l'API ──────────────────────────────────
+// Quand l'admin change l'image d'une solution, le slider se met à jour.
+const softwareSlides = ref([])
+
+// ── Partenaires chargés depuis l'API ─────────────────────────────────────────
+const partners = ref([])
+
+onMounted(async () => {
+  // Charger les solutions pour le slider
+  try {
+    const { data } = await api.get('/solutions')
+    softwareSlides.value = data.map((s) => ({
+      id:    s.id,
+      name:  s.name,
+      image: s.hero_image,
+      route: '/solutions/' + s.slug,
+    }))
+  } catch {
+    // Fallback sur les slides statiques si l'API est indisponible
+    const { softwareSlides: staticSlides } = await import('@/data/homeData')
+    softwareSlides.value = staticSlides
+  }
+
+  // Charger les partenaires
+  try {
+    const { data } = await api.get('/partners')
+    partners.value = data.map((p) => ({
+      id:   p.id,
+      name: p.name,
+      logo: p.logo_url,
+      url:  '#',
+    }))
+  } catch {
+    const { listeReferences } = await import('@/data/aboutData')
+    partners.value = listeReferences.map((r, i) => ({
+      id:   i + 1,
+      name: r.nom,
+      logo: r.logo,
+      url:  '#',
+    }))
+  }
+
+  startSlider()
+})
+
+// ── Contrôles du slider ───────────────────────────────────────────────────────
 const currentSlide = ref(0)
 let sliderInterval = null
 
@@ -331,26 +370,27 @@ function goToSlide(index) {
 }
 
 function nextSlide() {
-  currentSlide.value = (currentSlide.value + 1) % softwareSlides.length
-  if (sliderInterval) clearInterval(sliderInterval)
+  const len = softwareSlides.value.length || 1
+  currentSlide.value = (currentSlide.value + 1) % len
+  clearInterval(sliderInterval)
   startSlider()
 }
 
 function prevSlide() {
-  currentSlide.value =
-    (currentSlide.value - 1 + softwareSlides.length) % softwareSlides.length
-  if (sliderInterval) clearInterval(sliderInterval)
+  const len = softwareSlides.value.length || 1
+  currentSlide.value = (currentSlide.value - 1 + len) % len
+  clearInterval(sliderInterval)
   startSlider()
 }
 
 function startSlider() {
-  if (sliderInterval) clearInterval(sliderInterval)
+  clearInterval(sliderInterval)
   sliderInterval = setInterval(() => {
-    currentSlide.value = (currentSlide.value + 1) % softwareSlides.length
+    const len = softwareSlides.value.length || 1
+    currentSlide.value = (currentSlide.value + 1) % len
   }, 4500)
 }
 
-onMounted(() => startSlider())
 onUnmounted(() => clearInterval(sliderInterval))
 </script>
 
@@ -365,7 +405,7 @@ onUnmounted(() => clearInterval(sliderInterval))
 
 /* HERO : Titre vert (couleur bouton) */
 .hero-gradient-green {
-  color: #16a34a;
+  color: #166030;
   font-weight: 700;
 }
 

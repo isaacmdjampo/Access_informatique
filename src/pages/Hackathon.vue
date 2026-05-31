@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="hackathon-page bg-white text-slate-900 overflow-hidden">
     <!-- HERO -->
     <section class="relative min-h-screen flex items-center overflow-hidden bg-white">
@@ -8,7 +8,7 @@
       <!-- GLOW -->
       <div
         class="absolute top-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-20"
-        style="background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, transparent 70%)"
+        style="background: radial-gradient(circle, rgba(22, 96, 48, 0.25) 0%, transparent 70%)"
       ></div>
 
       <div
@@ -17,7 +17,7 @@
       ></div>
 
       <div
-        class="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center pt-40 pb-28"
+        class="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center pt-14 pb-10"
       >
         <!-- LEFT -->
         <div>
@@ -30,7 +30,7 @@
           </div>
 
           <!-- TITLE -->
-          <h1 class="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[0.95]">
+          <h1 class="text-3xl sm:text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[0.95]">
             Construisons les
             <span class="text-green-600">solutions numériques</span>
             de demain.
@@ -61,7 +61,7 @@
 
           <!-- STATS -->
           <div
-            class="grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden rounded-3xl bg-slate-100 border border-slate-200 mt-16 shadow-xl"
+            class="grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden rounded-3xl bg-slate-100 border border-slate-200 mt-5 shadow-xl"
           >
             <div v-for="stat in hackathonStats" :key="stat.label" class="bg-white p-6 text-center">
               <div class="text-3xl font-black text-green-600">
@@ -93,7 +93,7 @@
             ></div>
 
             <div class="absolute bottom-0 left-0 p-10">
-              <div class="text-sm uppercase tracking-[0.2em] text-green-300 mb-4">
+              <div class="text-sm uppercase tracking-[0.2em] text-green-300 mb-10">
                 Innovation • IA • Startup • Tech
               </div>
 
@@ -107,14 +107,14 @@
     </section>
 
     <!-- THEMES -->
-    <section class="py-28 bg-white">
+    <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center max-w-3xl mx-auto mb-20">
-          <p class="text-green-600 uppercase tracking-[0.2em] text-xs font-bold mb-4">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+          <p class="text-green-600 uppercase tracking-[0.2em] text-xs font-bold mb-10">
             Thématiques
           </p>
 
-          <h2 class="text-4xl md:text-6xl font-black tracking-tight text-slate-900">
+          <h2 class="text-2xl sm:text-4xl md:text-6xl font-black tracking-tight text-slate-900">
             Créez des projets à fort impact.
           </h2>
 
@@ -136,7 +136,7 @@
               {{ theme.icon }}
             </div>
 
-            <h3 class="text-2xl font-black text-slate-900 mb-4">
+            <h3 class="text-2xl font-black text-slate-900 mb-10">
               {{ theme.title }}
             </h3>
 
@@ -149,14 +149,14 @@
     </section>
 
     <!-- TIMELINE -->
-    <section id="programme" class="py-28 bg-slate-50">
+    <section id="programme" class="py-16 bg-slate-50">
       <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-20">
-          <p class="text-green-600 uppercase tracking-[0.2em] text-xs font-bold mb-4">
+        <div class="text-center mb-10">
+          <p class="text-green-600 uppercase tracking-[0.2em] text-xs font-bold mb-10">
             Déroulement
           </p>
 
-          <h2 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900">
+          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900">
             Le programme du Hackathon.
           </h2>
         </div>
@@ -178,7 +178,7 @@
                 {{ step.day }}
               </div>
 
-              <h3 class="text-3xl font-black text-slate-900 mb-4">
+              <h3 class="text-3xl font-black text-slate-900 mb-10">
                 {{ step.title }}
               </h3>
 
@@ -192,21 +192,21 @@
     </section>
 
     <!-- REWARDS -->
-    <section class="py-28 bg-slate-900 text-white relative overflow-hidden">
+    <section class="py-16 bg-slate-900 text-white relative overflow-hidden">
       <div
         class="absolute inset-0 opacity-20"
         style="
-          background: radial-gradient(circle at center, rgba(34, 197, 94, 0.2) 0%, transparent 70%);
+          background: radial-gradient(circle at center, rgba(22, 96, 48, 0.2) 0%, transparent 70%);
         "
       ></div>
 
       <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <div class="text-center mb-20">
-          <p class="text-green-400 uppercase tracking-[0.2em] text-xs font-bold mb-4">
+        <div class="text-center mb-10">
+          <p class="text-green-400 uppercase tracking-[0.2em] text-xs font-bold mb-10">
             Récompenses
           </p>
 
-          <h2 class="text-4xl md:text-6xl font-black tracking-tight">
+          <h2 class="text-2xl sm:text-4xl md:text-6xl font-black tracking-tight">
             Gagnez des prix exceptionnels.
           </h2>
         </div>
@@ -222,17 +222,17 @@
             "
             class="rounded-[2rem] p-10 text-center backdrop-blur-sm"
           >
-            <div class="text-6xl mb-6">
+            <div class="text-6xl mb-10">
               {{ reward.emoji }}
             </div>
 
-            <div class="text-2xl font-black mb-4">
+            <div class="text-2xl font-black mb-10">
               {{ reward.title }}
             </div>
 
             <div
               :class="reward.featured ? 'text-white' : 'text-green-400'"
-              class="text-4xl font-black mb-4"
+              class="text-4xl font-black mb-10"
             >
               {{ reward.amount }}
             </div>
@@ -244,7 +244,43 @@
 </template>
 
 <script setup>
-import { hackathonStats, hackathonThemes, hackathonTimeline, rewards } from '../data/hackathon'
+import { ref, onMounted } from 'vue'
+import api from '@/services/api'
+import {
+  hackathonStats   as staticStats,
+  hackathonThemes  as staticThemes,
+  hackathonTimeline as staticTimeline,
+  rewards          as staticRewards,
+} from '../data/hackathon'
+
+// ── Données chargées depuis l'API ─────────────────────────────────────────────
+const hackathonStats    = ref(staticStats)
+const hackathonThemes   = ref(staticThemes)
+const hackathonTimeline = ref(staticTimeline)
+const rewards           = ref(staticRewards)
+
+onMounted(async () => {
+  try {
+    const { data } = await api.get('/hackathon')
+
+    if (data.themes?.length)   hackathonThemes.value   = data.themes
+    if (data.timeline?.length) hackathonTimeline.value = data.timeline
+    if (data.rewards?.length)  rewards.value           = data.rewards
+
+    // Stats : reconstruire depuis la table contents
+    if (data.texts) {
+      const t = data.texts
+      const built = []
+      if (t['stats.duration.value'])     built.push({ value: t['stats.duration.value'],     label: t['stats.duration.label']     ?? 'Challenge' })
+      if (t['stats.participants.value']) built.push({ value: t['stats.participants.value'], label: t['stats.participants.label'] ?? 'Participants' })
+      if (t['stats.teams.value'])        built.push({ value: t['stats.teams.value'],        label: t['stats.teams.label']        ?? 'Équipes' })
+      if (t['stats.prize.value'])        built.push({ value: t['stats.prize.value'],        label: t['stats.prize.label']        ?? 'FCFA Prix' })
+      if (built.length === 4) hackathonStats.value = built
+    }
+  } catch {
+    // Fallback silencieux sur les données statiques déjà initialisées
+  }
+})
 </script>
 
 <style scoped>
