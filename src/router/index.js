@@ -20,6 +20,7 @@ const AdminFormations     = () => import('../views/admin/AdminFormations.vue')
 const AdminLeadsContact   = () => import('../views/admin/AdminLeadsContact.vue')
 const AdminLeadsInscriptions = () => import('../views/admin/AdminLeadsInscriptions.vue')
 const AdminPartners       = () => import('../views/admin/AdminPartners.vue')
+const AdminAdmins         = () => import('../views/admin/AdminAdmins.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,7 @@ const router = createRouter({
         { path: 'leads/contact',     name: 'admin-leads-contact',          component: AdminLeadsContact },
         { path: 'leads/inscriptions',name: 'admin-leads-inscriptions',     component: AdminLeadsInscriptions },
         { path: 'partners',          name: 'admin-partners',               component: AdminPartners },
+        { path: 'admins',            name: 'admin-admins',                 component: AdminAdmins },
       ],
     },
   ],

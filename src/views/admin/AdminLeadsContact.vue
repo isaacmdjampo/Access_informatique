@@ -80,6 +80,7 @@
         <button @click="nextPage" :disabled="page === lastPage" class="px-4 py-2 rounded-xl border border-slate-200 text-sm disabled:opacity-40">Suivant →</button>
       </div>
     </div>
+    </div>
 
     <!-- Modal détail message -->
     <Teleport to="body">
@@ -157,9 +158,20 @@ async function updateStatus(msg, status) {
 }
 
 async function viewMessage(msg) {
-  selected.value = msg
-  if (msg.status === 'new') {
-    await updateStatus(msg, 'read')
+  try {
+    // Récupérer le message complet incluant le corps du message
+    const { data } = await api.get(`/admin/leads/contact?id=${msg.id}`)
+    selected.value = data
+    // Si nouveau, marquer comme lu
+    if (data.status === 'new') {
+      await updateStatus(data, 'read')
+    }
+  } catch (err) {
+    // Fallback: utiliser les données partielles si fetch échoue
+    selected.value = msg
+    if (msg.status === 'new') {
+      await updateStatus(msg, 'read')
+    }
   }
 }
 

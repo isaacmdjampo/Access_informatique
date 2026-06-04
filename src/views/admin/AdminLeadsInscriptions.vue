@@ -42,7 +42,7 @@
         </thead>
         <tbody class="divide-y divide-slate-50">
           <tr v-for="ins in inscriptions" :key="ins.id"
-            @click="selected = ins"
+            @click="viewInscription(ins)"
             class="hover:bg-slate-50 cursor-pointer transition-colors"
             :class="ins.status === 'new' ? 'font-semibold' : ''"
           >
@@ -79,6 +79,7 @@
         <span class="text-sm text-slate-500">Page {{ page }} / {{ lastPage }}</span>
         <button @click="nextPage" :disabled="page === lastPage" class="px-4 py-2 rounded-xl border border-slate-200 text-sm disabled:opacity-40">Suivant →</button>
       </div>
+    </div>
     </div>
 
     <!-- Modal détail inscription -->
@@ -157,6 +158,17 @@ async function load() {
 async function updateStatus(ins, status) {
   try { await api.put(`/admin/leads/inscriptions?id=${ins.id}`, { status }); ins.status = status }
   catch { /* silencieux */ }
+}
+
+async function viewInscription(ins) {
+  try {
+    // Récupérer l'inscription complète incluant le message
+    const { data } = await api.get(`/admin/leads/inscriptions?id=${ins.id}`)
+    selected.value = data
+  } catch (err) {
+    // Fallback: utiliser les données partielles
+    selected.value = ins
+  }
 }
 
 async function deleteIns(ins) {
