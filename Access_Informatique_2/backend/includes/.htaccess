@@ -1,4 +1,0 @@
-# Interdire tout accès HTTP direct aux fichiers PHP de ce dossier.
-# Ces fichiers doivent être inclus via require_once, jamais appelés directement.
-# Syntaxe Apache 2.4
-Require all denied

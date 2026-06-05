@@ -27,7 +27,7 @@ function load_env(string $path): void
         $line = trim($line);
 
         // Ignorer les commentaires et lignes vides
-        if ($line === '' || str_starts_with($line, '#')) {
+        if ($line === '' || strpos($line, '#') === 0) {
             continue;
         }
 

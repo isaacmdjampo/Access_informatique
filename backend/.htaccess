@@ -6,7 +6,7 @@ Options -Indexes -MultiViews
 
 # ---- Moteur de réécriture ----
 RewriteEngine On
-RewriteBase /Access_Informatique/backend/
+RewriteBase /kira/backend/
 
 # ---- Transmettre Authorization à PHP (mod_fcgid le bloque sinon) ----
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
