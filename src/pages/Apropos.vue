@@ -325,7 +325,7 @@ onMounted(async () => {
 
 /* TEXTE VERT (couleur bouton) */
 .texte-degrade-green {
-  color: #166030;
+  color: #5ca170;
   font-weight: 700;
 }
 

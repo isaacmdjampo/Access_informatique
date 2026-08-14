@@ -231,7 +231,7 @@ const tagsInput    = ref('')
 
 const emptyForm = () => ({
   id: null, slug: '', name: '', tagline: '', category: '',
-  accent_color: '#166030', accent_color_light: '#dcfce7',
+  accent_color: '#5ca170', accent_color_light: '#eef7f2',
   hero_image: '', price: '', short_description: '', full_description: '',
   brochure_url: '', demo_url: '',
   stat1_value: '', stat1_label: '', stat2_value: '', stat2_label: '', stat3_value: '', stat3_label: '',

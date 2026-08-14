@@ -30,10 +30,10 @@ try {
     // Insérer le nouvel admin
     echo "Insertion du nouvel admin...\n";
     $stmt = $db->prepare(
-        'INSERT INTO admins (name, email, password_hash, created_at)
-         VALUES (?, ?, ?, NOW())'
+        'INSERT INTO admins (name, email, password_hash, role, created_by, created_at)
+         VALUES (?, ?, ?, ?, NULL, NOW())'
     );
-    $stmt->execute([$name, $email, $password_hash]);
+    $stmt->execute([$name, $email, $password_hash, 'superadmin']);
 
     echo "✓ Admin créé avec succès!\n\n";
 

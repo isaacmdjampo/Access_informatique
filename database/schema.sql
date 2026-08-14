@@ -28,10 +28,17 @@ CREATE TABLE IF NOT EXISTS `admins` (
   `name`          VARCHAR(100)  NOT NULL,
   `email`         VARCHAR(150)  NOT NULL,
   `password_hash` VARCHAR(255)  NOT NULL COMMENT 'Haché via password_hash() PHP',
+  `role`          VARCHAR(20)   NOT NULL DEFAULT 'admin' COMMENT 'superadmin, admin, editor',
+  `created_by`    INT UNSIGNED  DEFAULT NULL COMMENT 'ID du compte créateur',
+  `updated_by`    INT UNSIGNED  DEFAULT NULL COMMENT 'ID du dernier modificateur',
   `created_at`    TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`    TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_admin_email` (`email`)
+  UNIQUE KEY `uq_admin_email` (`email`),
+  KEY `idx_admin_created_by` (`created_by`),
+  KEY `idx_admin_updated_by` (`updated_by`),
+  CONSTRAINT `fk_admin_created_by` FOREIGN KEY (`created_by`) REFERENCES `admins`(`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_admin_updated_by` FOREIGN KEY (`updated_by`) REFERENCES `admins`(`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
@@ -232,6 +239,26 @@ CREATE TABLE IF NOT EXISTS `partners` (
   `is_active` TINYINT(1)    NOT NULL DEFAULT 1,
   `sort_order` TINYINT UNSIGNED NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================
+-- TABLE : admin_audit_log
+-- Historique des actions réalisées par les administrateurs.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS `admin_audit_log` (
+  `id`          INT UNSIGNED  NOT NULL AUTO_INCREMENT,
+  `admin_id`    INT UNSIGNED  NOT NULL COMMENT 'ID de l''admin qui a effectué l''action',
+  `action`      VARCHAR(50)   NOT NULL COMMENT 'create, update, delete, etc.',
+  `target_type` VARCHAR(50)   NOT NULL COMMENT 'admin, solution, content, etc.',
+  `target_id`   INT UNSIGNED  DEFAULT NULL,
+  `changes`     JSON          DEFAULT NULL,
+  `ip_address`  VARCHAR(45)   DEFAULT NULL,
+  `user_agent`  VARCHAR(500)  DEFAULT NULL,
+  `created_at`  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_audit_admin_id` (`admin_id`),
+  KEY `idx_audit_created_at` (`created_at`),
+  CONSTRAINT `fk_audit_admin` FOREIGN KEY (`admin_id`) REFERENCES `admins` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================

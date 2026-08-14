@@ -22,7 +22,10 @@
               class="absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out"
               :class="currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'"
             >
-              <router-link :to="slide.route" class="block w-full h-full cursor-pointer">
+              <router-link
+                :to="slide.route"
+                class="block w-full h-full cursor-pointer"
+              >
                 <img
                   :src="slide.image"
                   :alt="slide.name"
@@ -405,7 +408,7 @@ onUnmounted(() => clearInterval(sliderInterval))
 
 /* HERO : Titre vert (couleur bouton) */
 .hero-gradient-green {
-  color: #166030;
+  color: #5ca170;
   font-weight: 700;
 }
 

@@ -321,7 +321,7 @@ const submitForm = async () => {
 
 /* TEXTE VERT (couleur bouton) */
 .hero-gradient-green {
-  color: #166030;
+  color: #5ca170;
   font-weight: 700;
 }
 </style>

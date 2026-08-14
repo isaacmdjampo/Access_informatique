@@ -10,17 +10,17 @@
       "
     >
       <!-- Barre verte au dessus du header -->
-      <div class="px-6 py-2 bg-green-600 text-white w-full">
+      <div class="px-6 py-2 text-white w-full" style="background: #5ca170">
         <div
           class="max-w-7xl mx-auto flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-sm"
         >
           <div class="flex flex-wrap items-center justify-center gap-2 text-center md:text-left">
-            <span
+            <!-- <span
               class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]"
             >
               <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
               <span class="hidden sm:inline">Bienvenue chez</span> Access Informatique
-            </span>
+            </span> -->
             <span class="hidden md:inline text-white font-semibold">|</span>
             <a :href="`mailto:${email}`" class="hidden md:inline text-white hover:text-white/80 transition-colors duration-200">{{ email }}</a>
             <span class="hidden md:inline text-white font-semibold">|</span>
@@ -73,8 +73,9 @@
           <li v-for="link in navLinks" :key="link.to">
             <router-link
               :to="link.to"
-              class="px-4 py-2 rounded-lg transition-all duration-200 text-slate-700 hover:text-green-600 hover:bg-green-50"
-              active-class="!text-green-600 font-semibold"
+              class="px-4 py-2 rounded-lg transition-all duration-200 text-slate-700"
+              :class="$route.path === link.to ? 'font-semibold' : ''"
+              :style="$route.path === link.to ? 'color: #5ca170' : 'color: inherit'"
             >
               {{ link.label }}
             </router-link>
@@ -83,7 +84,8 @@
           <li class="ml-4">
             <router-link
               to="/contact"
-              class="px-5 py-2 rounded-lg bg-green-600 hover:bg-green-500 text-white font-semibold transition-all duration-200 shadow-md shadow-green-600/20 hover:shadow-green-500/30 hover:-translate-y-px"
+              class="px-5 py-2 rounded-lg text-white font-semibold transition-all duration-200 shadow-md hover:-translate-y-px"
+              style="background: #5ca170; box-shadow: 0 4px 6px -1px rgba(92, 161, 112, 0.2)"
             >
               Nous contacter
             </router-link>
@@ -129,8 +131,9 @@
               <router-link
                 :to="link.to"
                 @click="mobileMenuOpen = false"
-                class="block px-4 py-3 rounded-xl text-slate-700 hover:text-green-600 hover:bg-green-50 font-medium transition-all duration-200"
-                active-class="!text-green-600 bg-green-100"
+                class="block px-4 py-3 rounded-xl text-slate-700 font-medium transition-all duration-200"
+                active-class="font-semibold"
+                :style="$route.path === link.to ? 'background-color: #eef7f2; color: #5ca170' : ''"
               >
                 {{ link.label }}
               </router-link>
@@ -139,7 +142,8 @@
               <router-link
                 to="/contact"
                 @click="mobileMenuOpen = false"
-                class="block px-4 py-3 rounded-xl bg-green-600 hover:bg-green-500 text-white font-semibold text-center transition-colors"
+                class="block px-4 py-3 rounded-xl text-white font-semibold text-center transition-colors"
+                style="background: #5ca170"
               >
                 Nous contacter
               </router-link>
@@ -148,7 +152,8 @@
               <router-link
                 to="/inscription"
                 @click="mobileMenuOpen = false"
-                class="block px-4 py-3 rounded-xl bg-green-600 hover:bg-green-500 text-white font-semibold text-center transition-colors"
+                class="block px-4 py-3 rounded-xl text-white font-semibold text-center transition-colors"
+                style="background: #5ca170"
               >
                 S'inscrire à une formation
               </router-link>
@@ -183,7 +188,10 @@
               <a
                 href="#"
                 aria-label="Facebook"
-                class="w-9 h-9 rounded-lg bg-white/5 hover:bg-green-600 flex items-center justify-center transition-colors duration-200"
+                class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center transition-colors duration-200"
+                style="color: inherit"
+                @mouseenter="$event.target.style.backgroundColor = '#5ca170'"
+                @mouseleave="$event.target.style.backgroundColor = 'rgba(255,255,255,0.05)'"
               >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -192,13 +200,18 @@
                 </svg>
               </a>
               <a
-                href="#"
-                aria-label="LinkedIn"
-                class="w-9 h-9 rounded-lg bg-white/5 hover:bg-green-600 flex items-center justify-center transition-colors duration-200"
+                :href="whatsappLink"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="WhatsApp"
+                class="w-9 h-9 rounded-lg bg-white/5 flex items-center justify-center transition-colors duration-200"
+                style="color: inherit"
+                @mouseenter="$event.target.style.backgroundColor = '#5ca170'"
+                @mouseleave="$event.target.style.backgroundColor = 'rgba(255,255,255,0.05)'"
               >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path
-                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                    d="M20.52 3.48A11.8 11.8 0 0012.04 0C5.5 0 .2 5.3.2 11.84c0 2.08.54 4.1 1.56 5.88L0 24l6.46-1.7a11.8 11.8 0 005.58 1.42h.01c6.54 0 11.84-5.3 11.84-11.84 0-3.16-1.23-6.13-3.37-8.4zM12.05 21.7a9.8 9.8 0 01-5-1.37l-.36-.21-3.83 1 1.02-3.73-.23-.38a9.76 9.76 0 01-1.5-5.17c0-5.4 4.4-9.8 9.81-9.8 2.62 0 5.08 1.02 6.93 2.87a9.72 9.72 0 012.87 6.93c0 5.4-4.4 9.8-9.81 9.8zm5.38-7.35c-.3-.15-1.77-.88-2.04-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.95 1.18-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.46-.88-.79-1.48-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.08-.8.37-.27.3-1.05 1.02-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.3 1.28.48 1.72.62.72.23 1.37.2 1.88.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"
                   />
                 </svg>
               </a>
@@ -295,13 +308,17 @@ const phone2 = computed(() => contentStore.get('global', 'header.phone2', '(+225
 const footerTagline = computed(() => contentStore.get('global', 'footer.tagline', "Éditeur de solutions de gestion sur mesure pour les entreprises, institutions et professionnels de Côte d'Ivoire et d'Afrique."))
 const footerAddress = computed(() => contentStore.get('global', 'footer.address', 'Yopougon Sable, Andokoi, Abidjan, Côte d\'Ivoire'))
 const footerHours   = computed(() => contentStore.get('global', 'footer.hours',   'Lun–Ven : 08h–18h · Sam : 09h–13h'))
+const whatsappLink  = computed(() => {
+  const digits = phone1.value.replace(/\D/g, '')
+  return digits ? `https://wa.me/${digits}` : 'https://wa.me/2250101573054'
+})
 
 // ─── Navigation ───────────────────────────────────────────────────────────────
 const navLinks = [
   { to: '/', label: 'Accueil' },
   { to: '/solutions', label: 'Nos solutions' },
   { to: '/apropos', label: 'Qui sommes-nous ?' },
-  { to: '/hackathon', label: 'Hackathon' },
+  { to: '/partenaires', label: 'Nos partenaires' },
   { to: '/formation', label: 'Formation' },
 ]
 

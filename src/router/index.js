@@ -37,7 +37,8 @@ const router = createRouter({
     { path: '/formation',   name: 'formation',        component: Formation },
     { path: '/inscription', name: 'inscription',      component: LoginInscription },
     { path: '/contact',     name: 'contact',          component: Contact },
-    { path: '/hackathon',   name: 'hackathon',        component: Hackathon },
+    // { path: '/hackathon',   name: 'hackathon',        component: Hackathon }, // Commente pour maintenant, sera ajoute plus tard
+    { path: '/partenaires', name: 'partners',         component: () => import('../pages/Partners.vue') },
     { path: '/formation/:slug', name: 'formation-detail', component: FormationDetail },
     { path: '/solutions/:slug', name: 'solution-detail',  component: SolutionDetails },
 

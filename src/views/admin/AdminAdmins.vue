@@ -20,6 +20,9 @@
     <!-- Tableau des admins -->
     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
       <div v-if="loading" class="p-8 text-center text-slate-400 text-sm">Chargement...</div>
+      <div v-else-if="loadError" class="p-8 text-center text-red-600 text-sm bg-red-50 border-b border-red-100">
+        {{ loadError }}
+      </div>
       <div v-else-if="admins.length === 0" class="p-8 text-center text-slate-400 text-sm">Aucun administrateur.</div>
       <div v-else class="overflow-x-auto">
         <table class="w-full text-sm min-w-[640px]">
@@ -203,10 +206,13 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { useAdminStore } from '@/stores/admin'
 import api from '@/services/api'
 
+const adminStore = useAdminStore()
 const admins = ref([])
 const loading = ref(true)
+const loadError = ref('')
 const showCreateModal = ref(false)
 const showEditModal = ref(false)
 const isCreating = ref(false)
@@ -214,7 +220,6 @@ const isUpdating = ref(false)
 const createError = ref('')
 const editError = ref('')
 const editingAdmin = ref(null)
-const currentAdminId = ref(null)
 
 const newAdmin = ref({
   name: '',
@@ -223,35 +228,36 @@ const newAdmin = ref({
   role: 'editor',
 })
 
-const isSuperAdmin = computed(() => {
-  const admin = admins.value.find(a => a.id === currentAdminId.value)
-  return admin?.role === 'superadmin'
-})
+const isSuperAdmin = computed(() => adminStore.admin?.role === 'superadmin')
+const currentAdminId = computed(() => adminStore.admin?.id)
 
 onMounted(async () => {
-  // Récupérer le rôle de l'admin connecté depuis le store
-  const token = localStorage.getItem('admin_token')
-  if (token) {
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]))
-      currentAdminId.value = payload.admin_id
-    } catch (e) {
-      console.error('Erreur parsing token', e)
-    }
-  }
-  load()
+  await load()
 })
 
 async function load() {
   loading.value = true
+  loadError.value = ''
   try {
     const { data } = await api.get('/admin/admins')
-    admins.value = data.data
+    admins.value = data.data ?? data ?? []
   } catch (err) {
     console.error('Erreur loading admins:', err)
+    loadError.value = err.response?.data?.error || 'Impossible de charger la liste des administrateurs.'
+    admins.value = []
   } finally {
     loading.value = false
   }
+}
+
+function extractApiError(error) {
+  const response = error?.response?.data
+  if (!response) return 'Erreur de communication avec le serveur.'
+  if (response.error) return response.error
+  if (response.errors && typeof response.errors === 'object') {
+    return Object.values(response.errors).flat().join(' ')
+  }
+  return 'Erreur de création'
 }
 
 async function createAdmin() {
@@ -275,7 +281,7 @@ async function createAdmin() {
     newAdmin.value = { name: '', email: '', password: '', role: 'editor' }
     await load()
   } catch (err) {
-    createError.value = err.response?.data?.error || err.response?.data?.errors?.[0] || 'Erreur de création'
+    createError.value = extractApiError(err)
   } finally {
     isCreating.value = false
   }
@@ -299,7 +305,7 @@ async function updateAdminRole() {
     editingAdmin.value = null
     await load()
   } catch (err) {
-    editError.value = err.response?.data?.error || 'Erreur de mise à jour'
+    editError.value = extractApiError(err)
   } finally {
     isUpdating.value = false
   }

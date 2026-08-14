@@ -69,7 +69,7 @@ try {
 
     // Chercher l'admin par email (requête préparée — zéro concaténation SQL)
     $stmt = $db->prepare(
-        'SELECT id, name, email, password_hash
+        'SELECT id, name, email, role, password_hash
            FROM admins
           WHERE email = ?
           LIMIT 1'

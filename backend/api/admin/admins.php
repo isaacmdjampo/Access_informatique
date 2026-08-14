@@ -6,8 +6,8 @@
  * DELETE /api/admin/admins?id=X  — Supprimer un admin
  * ---------------------------------------------------------------
  * Endpoint protégé : JWT + vérification de rôle.
- * Seul un superadmin peut tout faire.
- * Un admin peut créer des éditeurs mais pas modifier les rôles.
+ * Seul un superadmin peut créer ou modifier des comptes admin/superadmin.
+ * Un admin peut seulement créer des éditeurs et consulter la liste des admins.
  * ---------------------------------------------------------------
  */
 
@@ -35,16 +35,25 @@ try {
     $current_admin_id = (int) ($payload['sub'] ?? 0);
     $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
+    $stmt = $db->query('SHOW COLUMNS FROM admins');
+    $existing_columns = array_column($stmt->fetchAll(), 'Field');
+    $has_created_by = in_array('created_by', $existing_columns, true);
+    $has_updated_by = in_array('updated_by', $existing_columns, true);
+
     switch ($method) {
 
         // ---- Lister tous les admins ----
         case 'GET':
             // Tous les admins authentifiés peuvent voir la liste
-            $stmt = $db->query(
-                'SELECT id, name, email, role, created_at, created_by, updated_by, updated_at
-                   FROM admins
-                  ORDER BY role DESC, name ASC'
-            );
+            $columns = ['id', 'name', 'email', 'role', 'created_at', 'updated_at'];
+            if ($has_created_by) {
+                $columns[] = 'created_by';
+            }
+            if ($has_updated_by) {
+                $columns[] = 'updated_by';
+            }
+            $sql = 'SELECT ' . implode(', ', $columns) . ' FROM admins ORDER BY role DESC, name ASC';
+            $stmt = $db->query($sql);
             $admins = $stmt->fetchAll();
 
             json_response([
@@ -108,11 +117,19 @@ try {
 
             // Créer le nouvel admin
             $hash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
-            $stmt = $db->prepare(
-                'INSERT INTO admins (name, email, password_hash, role, created_by)
-                 VALUES (?, ?, ?, ?, ?)'
-            );
-            $stmt->execute([$name, $email, $hash, $role, $current_admin_id]);
+            if ($has_created_by) {
+                $stmt = $db->prepare(
+                    'INSERT INTO admins (name, email, password_hash, role, created_by)
+                     VALUES (?, ?, ?, ?, ?)'
+                );
+                $stmt->execute([$name, $email, $hash, $role, $current_admin_id]);
+            } else {
+                $stmt = $db->prepare(
+                    'INSERT INTO admins (name, email, password_hash, role)
+                     VALUES (?, ?, ?, ?)'
+                );
+                $stmt->execute([$name, $email, $hash, $role]);
+            }
             $new_id = (int) $db->lastInsertId();
 
             log_audit($current_admin_id, 'create', 'admin', $new_id, [
@@ -163,8 +180,13 @@ try {
 
             // Enregistrer le changement
             if ($role !== $admin['role']) {
-                $db->prepare('UPDATE admins SET role = ?, updated_by = ? WHERE id = ?')
-                   ->execute([$role, $current_admin_id, $id]);
+                if ($has_updated_by) {
+                    $db->prepare('UPDATE admins SET role = ?, updated_by = ? WHERE id = ?')
+                       ->execute([$role, $current_admin_id, $id]);
+                } else {
+                    $db->prepare('UPDATE admins SET role = ? WHERE id = ?')
+                       ->execute([$role, $id]);
+                }
 
                 log_audit($current_admin_id, 'update', 'admin', $id, [
                     'field' => 'role',

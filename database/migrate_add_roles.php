@@ -8,7 +8,7 @@
  *  - role (superadmin, admin, editor)
  *  - created_by (ID de l'admin qui a créé ce compte)
  *  - updated_by (ID du dernier admin à modifier ce compte)
- *  - action_log (JSON des dernières actions)
+ *  - audit log des actions admin
  */
 
 define('DB_HOST', '127.0.0.1');

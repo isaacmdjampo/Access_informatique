@@ -18,16 +18,19 @@ require_once __DIR__ . '/../../../includes/config.php';
 require_once __DIR__ . '/../../../includes/db.php';
 require_once __DIR__ . '/../../../includes/Response.php';
 require_once __DIR__ . '/../../../includes/Auth.php';
+require_once __DIR__ . '/../../../includes/RoleCheck.php';
 
 cors_headers();
 
 $method = $_SERVER['REQUEST_METHOD'];
 
+$payload = require_auth();
+$current_admin_id = (int) ($payload['sub'] ?? 0);
+require_role('admin', $current_admin_id);
+
 if (!in_array($method, ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], true)) {
     error_response('Méthode non autorisée.', 405);
 }
-
-require_auth();
 
 try {
     match ($method) {
@@ -77,6 +80,7 @@ function handle_get(): never
 
 function handle_post(): never
 {
+    global $current_admin_id;
     $data = get_json_body();
     validate_solution_data($data);
 
@@ -102,6 +106,12 @@ function handle_post(): never
 
     replace_related($db, $id, $data);
 
+    log_audit($current_admin_id, 'create', 'solution', $id, [
+        'slug' => $data['slug'] ?? null,
+        'name' => $data['name'] ?? null,
+        'hero_image' => $data['hero_image'] ?? null,
+    ]);
+
     $db->commit();
 
     json_response([
@@ -113,6 +123,7 @@ function handle_post(): never
 
 function handle_put(): never
 {
+    global $current_admin_id;
     $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
     if ($id <= 0) {
         error_response('Paramètre "id" manquant ou invalide.', 422);
@@ -153,6 +164,10 @@ function handle_put(): never
 
     $db->commit();
 
+    log_audit($current_admin_id, 'update', 'solution', $id, [
+        'updated_fields' => array_keys($data),
+    ]);
+
     json_response([
         'success' => true,
         'message' => 'Solution mise à jour avec succès.',
@@ -162,6 +177,7 @@ function handle_put(): never
 
 function handle_patch(): never
 {
+    global $current_admin_id;
     // PATCH /api/admin/solutions?id=3
     // Met à jour uniquement is_active (toggle rapide depuis la liste).
     $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
@@ -177,11 +193,16 @@ function handle_patch(): never
 
     if ($stmt->rowCount() === 0) error_response('Solution introuvable.', 404);
 
+    log_audit($current_admin_id, 'update', 'solution', $id, [
+        'is_active' => $is_active,
+    ]);
+
     json_response(['success' => true, 'is_active' => $is_active]);
 }
 
 function handle_delete(): never
 {
+    global $current_admin_id;
     $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
     if ($id <= 0) {
         error_response('Paramètre "id" manquant ou invalide.', 422);
@@ -197,6 +218,8 @@ function handle_delete(): never
 
     // Les tables liées sont supprimées automatiquement (ON DELETE CASCADE)
     $db->prepare('DELETE FROM solutions WHERE id = ?')->execute([$id]);
+
+    log_audit($current_admin_id, 'delete', 'solution', $id, []);
 
     json_response([
         'success' => true,

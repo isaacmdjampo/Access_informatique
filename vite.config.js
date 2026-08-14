@@ -21,7 +21,7 @@ export default defineConfig(({ command }) => ({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost/Access_Informatique/backend',
+        target: 'http://localhost/Access_informatique/backend',
         changeOrigin: true,
         secure: false,
 

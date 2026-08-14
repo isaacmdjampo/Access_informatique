@@ -6,7 +6,10 @@ Options -Indexes -MultiViews
 
 # ---- Moteur de réécriture ----
 RewriteEngine On
-RewriteBase /kira/backend/
+# IMPORTANT : adapter ce chemin au dossier réel de votre installation WAMP/XAMPP.
+# Pour un projet dans c:\wamp64\www\Access_informatique, la bonne valeur est :
+# RewriteBase /Access_informatique/backend/
+RewriteBase /Access_informatique/backend/
 
 # ---- Transmettre Authorization à PHP (mod_fcgid le bloque sinon) ----
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

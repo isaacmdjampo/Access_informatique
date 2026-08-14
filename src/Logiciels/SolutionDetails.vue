@@ -1,11 +1,11 @@
 ﻿<template>
   <div v-if="solution" class="solution-detail-page">
     <!-- HERO SECTION -->
-    <section class="relative pt-20 pb-0 overflow-hidden bg-white">
+    <section class="relative pt-20 pb-24 overflow-hidden bg-white">
       <div class="hero-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
       <div
         class="absolute top-0 right-0 w-[700px] h-[700px] rounded-full pointer-events-none"
-        style="background: radial-gradient(circle, #16603018 0%, transparent 70%)"
+        style="background: radial-gradient(circle, #5ca17018 0%, transparent 70%)"
         aria-hidden="true"
       ></div>
 
@@ -40,10 +40,10 @@
           <div class="animate-fade-up">
             <!-- Badge catégorie -->
             <span
-              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-10 border border-green-500/30"
-              style="background: #f0faf4; color: #166030"
+              class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-10 border"
+              style="background: #eef7f2; color: #5ca170; border-color: rgba(92, 161, 112, 0.3)"
             >
-              <span class="w-1.5 h-1.5 rounded-full" style="background: #166030"></span>
+              <span class="w-1.5 h-1.5 rounded-full" style="background: #5ca170"></span>
               {{ solution.category }}
             </span>
 
@@ -55,142 +55,25 @@
             </h1>
 
             <!-- Tagline -->
-            <p class="text-lg md:text-xl font-semibold mb-8" style="color: #166030">
+            <p class="text-lg md:text-xl font-semibold mb-8" style="color: #5ca170">
               {{ solution.tagline }}
             </p>
 
             <!-- Description courte -->
-            <p class="text-slate-500 text-base leading-relaxed mb-10">
+            <p class="text-slate-500 text-base leading-relaxed mb-8">
               {{ solution.shortDescription }}
             </p>
 
-            <!-- CTAs principaux -->
-            <div class="flex flex-col sm:flex-row gap-4">
-              <!-- Bouton Télécharger présentation -->
-              <a
-                :href="solution.brochureUrl"
-                download
-                class="group inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl font-bold text-sm text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
-                style="background: #166030; box-shadow: 0 8px 24px #16603040"
-              >
-                <svg
-                  class="w-5 h-5 group-hover:-translate-y-0.5 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                  />
-                </svg>
-                Télécharger la présentation
-              </a>
-
-              <!-- Bouton Voir la démo -->
-              <a
-                :href="solution.demoUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group inline-flex items-center justify-center gap-3 px-7 py-4 rounded-xl font-bold text-sm border-2 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-                style="color: #166030; border-color: #166030"
-              >
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                  />
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                Voir la démo en ligne
-              </a>
-            </div>
-
-            <!-- Tags -->
-            <div class="flex flex-wrap gap-2 mt-8">
-              <span
-                v-for="tag in solution.tags"
-                :key="tag"
-                class="px-3 py-1 rounded-lg text-xs font-medium bg-slate-50 text-slate-500 border border-slate-100"
-              >
-                {{ tag }}
-              </span>
-            </div>
-          </div>
-
-          <!-- Colonne droite : image hero -->
-          <div class="relative animate-fade-up-delay">
-            <div
-              class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-100 ring-1 ring-slate-900/5"
-            >
-              <img
-                :src="solution.heroImage"
-                :alt="`Aperçu de ${solution.name}`"
-                class="w-full h-auto object-cover"
-                loading="lazy"
-              />
-              <div
-                class="absolute inset-0 opacity-10 pointer-events-none"
-                style="background: linear-gradient(135deg, #166030 0%, transparent 60%)"
-              ></div>
-            </div>
-            <div
-              class="absolute -bottom-8 -right-8 w-40 h-40 rounded-full -z-10 opacity-15"
-              style="background: #166030"
-            ></div>
-            <div
-              class="absolute -top-4 -left-4 w-20 h-20 rounded-full -z-10 opacity-10"
-              style="background: #166030"
-            ></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BARRE DE STATS -->
-    <section class="py-16 bg-slate-50 border-y border-slate-100">
-      <div class="max-w-5xl mx-auto px-6">
-        <div class="grid grid-cols-3 gap-6 text-center divide-x divide-slate-200">
-          <div v-for="stat in solution.stats" :key="stat.label" class="px-4">
-            <p class="text-3xl md:text-4xl font-black" style="color: #166030">
-              {{ stat.value }}
-            </p>
-            <p class="text-sm text-slate-500 mt-1 font-medium">{{ stat.label }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- DESCRIPTION + AVANTAGES -->
-    <section class="py-14 bg-white">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          <div>
-            <p class="text-xs font-bold tracking-[0.2em] uppercase mb-3" style="color: #166030">
-              À propos
-            </p>
-            <h2
-              class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-10 leading-tight"
-            >
-              Pourquoi choisir<br />
-              <span style="color: #166030">{{ solution.name }} ?</span>
-            </h2>
-            <p class="text-slate-600 leading-relaxed text-base mb-8">
+            <!-- Description complète intégrée -->
+            <p class="text-slate-600 text-base leading-relaxed mb-10">
               {{ solution.fullDescription }}
             </p>
+
+            <!-- CTA -->
             <router-link
               to="/contact"
               class="inline-flex items-center gap-2 font-semibold text-sm transition-all hover:gap-3"
-              style="color: #166030"
+              style="color: #5ca170"
             >
               Parler à un expert
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -204,47 +87,76 @@
             </router-link>
           </div>
 
-          <div class="rounded-2xl p-8 border" style="background: #f0faf4; border-color: #16603022">
-            <h3 class="text-lg font-black text-slate-900 mb-10">✦ Les points forts</h3>
-            <ul class="space-y-5">
-              <li
-                v-for="advantage in solution.advantages"
-                :key="advantage"
-                class="flex items-start gap-4"
+          <!-- Colonne droite : image hero + points forts en dessous -->
+          <div class="space-y-6">
+            <div class="relative animate-fade-up-delay">
+              <div
+                class="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-100 ring-1 ring-slate-900/5"
               >
-                <span
-                  class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                  style="background: #166030"
+                <img
+                  :src="solution.heroImage"
+                  :alt="`Aperçu de ${solution.name}`"
+                  class="w-full h-auto object-contain object-center"
+                  loading="lazy"
+                />
+                <div
+                  class="absolute inset-0 opacity-10 pointer-events-none"
+                  style="background: linear-gradient(135deg, #5ca170 0%, transparent 60%)"
+                ></div>
+              </div>
+              <div
+                class="absolute -bottom-8 -right-8 w-40 h-40 rounded-full -z-10 opacity-15"
+                style="background: #5ca170"
+              ></div>
+              <div
+                class="absolute -top-4 -left-4 w-20 h-20 rounded-full -z-10 opacity-10"
+                style="background: #5ca170"
+              ></div>
+            </div>
+
+            <!-- Points forts card -->
+            <div class="rounded-2xl p-8 border" style="background: #eef7f2; border-color: #5ca17022">
+              <h3 class="text-lg font-black text-slate-900 mb-8">✦ Les points forts</h3>
+              <ul class="space-y-4">
+                <li
+                  v-for="advantage in solution.advantages"
+                  :key="advantage"
+                  class="flex items-start gap-3"
                 >
-                  <svg
-                    class="w-3.5 h-3.5 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                  <span
+                    class="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+                    style="background: #5ca170"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="3"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </span>
-                <span class="text-slate-700 text-sm leading-relaxed font-medium">{{
-                  advantage
-                }}</span>
-              </li>
-            </ul>
+                    <svg
+                      class="w-3 h-3 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="3"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </span>
+                  <span class="text-slate-700 text-sm leading-relaxed font-medium">{{
+                    advantage
+                  }}</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- GRILLE DES MODULES -->
-    <section class="py-14 bg-slate-50">
+    <section class="bg-white py-16">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-8">
-          <p class="text-xs font-bold tracking-[0.2em] uppercase mb-3" style="color: #166030">
+        <div class="text-center mb-12">
+          <p class="text-xs font-bold tracking-[0.2em] uppercase mb-3" style="color: #5ca170">
             Fonctionnalités
           </p>
           <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">
@@ -259,11 +171,11 @@
           <div
             v-for="(module, index) in solution.modules"
             :key="module.title"
-            class="module-card group bg-white rounded-2xl p-7 border border-slate-100 hover:border-transparent hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col"
+            class="module-card group bg-slate-50 rounded-xl p-7 border border-slate-100 hover:border-transparent hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"
           >
             <div
-              class="w-11 h-11 rounded-xl flex items-center justify-center mb-8 text-sm font-black flex-shrink-0 transition-transform group-hover:scale-110"
-              style="background: #f0faf4; color: #166030"
+              class="w-11 h-11 rounded-lg flex items-center justify-center mb-8 text-xs font-black flex-shrink-0 transition-transform group-hover:scale-110"
+              style="background: #eef7f2; color: #5ca170"
             >
               {{ String(index + 1).padStart(2, '0') }}
             </div>
@@ -271,15 +183,47 @@
             <p class="text-slate-500 text-sm leading-relaxed flex-grow">{{ module.description }}</p>
             <div
               class="mt-5 h-0.5 w-0 group-hover:w-full rounded-full transition-all duration-400"
-              style="background: #166030"
+              style="background: #5ca170"
             ></div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- BARRE DE STATS ET PARTENAIRES -->
+    <section class="py-16 bg-slate-50 border-y border-slate-100">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="grid grid-cols-3 gap-6 text-center divide-x divide-slate-200 mb-12">
+          <div v-for="stat in solution.stats" :key="stat.label" class="px-4">
+            <p class="text-3xl md:text-4xl font-black" style="color: #5ca170">
+              {{ stat.value }}
+            </p>
+            <p class="text-sm text-slate-500 mt-1 font-medium">{{ stat.label }}</p>
+          </div>
+        </div>
+
+        <!-- Section Partenaires -->
+        <div v-if="filteredPartners.length" class="border-t border-slate-200 pt-12">
+          <h3 class="text-lg font-bold text-slate-900 text-center mb-8">Utilisé par nos partenaires</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+            <div
+              v-for="partner in filteredPartners"
+              :key="partner.nom"
+              class="flex items-center justify-center p-6 rounded-lg bg-white border border-slate-100 "
+            >
+              <img
+                :src="partner.logo"
+                :alt="partner.nom"
+                class="h-20-auto object-contain  hover:grayscale-0 transition-all duration-300"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA BANDE FINALE -->
-    <section class="py-14 relative overflow-hidden" style="background: #166030">
+    <section class="py-14 relative overflow-hidden" style="background: #5ca170">
       <div
         class="absolute inset-0 pointer-events-none"
         style="
@@ -311,7 +255,7 @@
             :href="solution.brochureUrl"
             download
             class="group inline-flex items-center justify-center gap-3 px-10 py-4 rounded-xl bg-white font-bold text-sm transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-black/20 hover:shadow-xl"
-            style="color: #166030"
+            style="color: #5ca170"
           >
             <svg
               class="w-5 h-5 group-hover:-translate-y-0.5 transition-transform"
@@ -373,8 +317,8 @@
     <p class="text-slate-500 text-lg mb-10">Cette page n'existe pas ou a été déplacée.</p>
     <router-link
       to="/solutions"
-      class="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold transition-all duration-200 hover:-translate-y-0.5 shadow-lg shadow-green-600/25"
-      style="background: #166030; color: white"
+      class="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold transition-all duration-200 hover:-translate-y-0.5 shadow-lg"
+      style="background: #5ca170; color: white; box-shadow: 0 10px 15px -3px rgba(92, 161, 112, 0.25)"
     >
       ← Retour aux solutions
     </router-link>
@@ -382,20 +326,48 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import api from '@/services/api'
+import { listeReferences, listeLogiciels } from '@/data/aboutData'
 
 const route    = useRoute()
 const solution = ref(null)
 const isLoading = ref(true)
 const error     = ref(null)
 
+const normalizeText = (value) =>
+  String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '')
+
+// Filtrer les partenaires en fonction du logiciel ou du slug
+const filteredPartners = computed(() => {
+  if (!solution.value) return []
+
+  const solutionKey = normalizeText(solution.value.slug || solution.value.name)
+
+  const logiciel = listeLogiciels.find((log) => {
+    const logKey = normalizeText(log.nom)
+    return (
+      logKey === solutionKey ||
+      logKey.includes(solutionKey) ||
+      solutionKey.includes(logKey)
+    )
+  })
+
+  if (!logiciel) return []
+
+  return listeReferences.filter((ref) =>
+    logiciel.references.some((nom) => normalizeText(nom) === normalizeText(ref.nom))
+  )
+})
+
 async function fetchSolution(slug) {
   isLoading.value = true
   error.value     = null
   try {
-    const { data } = await api.get(`/solutions/${slug}`)
+    const { data } = await api.get(`/solutions?slug=${slug}`)
     // Transformer snake_case → camelCase pour garder la compatibilité du template
     solution.value = {
       ...data,
@@ -406,6 +378,7 @@ async function fetchSolution(slug) {
       demoUrl:          data.demo_url,
       accentColor:      data.accent_color,
       accentColorLight: data.accent_color_light,
+      partners:         data.partners || [],
     }
   } catch (e) {
     // Fallback sur les données locales si l'API est indisponible

@@ -21,12 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     error_response('Méthode non autorisée.', 405);
 }
 
-require_auth();
-$payload = get_token_payload();
-$current_admin_id = (int) $payload['admin_id'];
+$payload = require_auth();
+$current_admin_id = (int) ($payload['sub'] ?? 0);
 
 // Seuls admin et superadmin peuvent voir l'audit
 require_role('admin', $current_admin_id);
+
+$is_superadmin = check_role('superadmin', $current_admin_id);
 
 try {
     $db = get_db();
@@ -35,19 +36,37 @@ try {
     $per_page = min(100, max(1, (int) ($_GET['per_page'] ?? 50)));
     $offset = ($page - 1) * $per_page;
 
-    $total = $db->query('SELECT COUNT(*) FROM admin_audit_log')->fetchColumn();
+    if ($is_superadmin) {
+        $total = $db->query('SELECT COUNT(*) FROM admin_audit_log')->fetchColumn();
+        $stmt = $db->prepare(
+            'SELECT
+                al.id, al.admin_id, al.action, al.target_type, al.target_id,
+                al.changes, al.ip_address, al.created_at,
+                a.name as admin_name, a.email as admin_email
+             FROM admin_audit_log al
+             LEFT JOIN admins a ON al.admin_id = a.id
+             ORDER BY al.created_at DESC
+             LIMIT ? OFFSET ?'
+        );
+        $stmt->execute([$per_page, $offset]);
+    } else {
+        $countStmt = $db->prepare('SELECT COUNT(*) FROM admin_audit_log WHERE admin_id = ?');
+        $countStmt->execute([$current_admin_id]);
+        $total = $countStmt->fetchColumn();
 
-    $stmt = $db->prepare(
-        'SELECT
-            al.id, al.admin_id, al.action, al.target_type, al.target_id,
-            al.changes, al.ip_address, al.created_at,
-            a.name as admin_name, a.email as admin_email
-         FROM admin_audit_log al
-         LEFT JOIN admins a ON al.admin_id = a.id
-         ORDER BY al.created_at DESC
-         LIMIT ? OFFSET ?'
-    );
-    $stmt->execute([$per_page, $offset]);
+        $stmt = $db->prepare(
+            'SELECT
+                al.id, al.admin_id, al.action, al.target_type, al.target_id,
+                al.changes, al.ip_address, al.created_at,
+                a.name as admin_name, a.email as admin_email
+             FROM admin_audit_log al
+             LEFT JOIN admins a ON al.admin_id = a.id
+             WHERE al.admin_id = ?
+             ORDER BY al.created_at DESC
+             LIMIT ? OFFSET ?'
+        );
+        $stmt->execute([$current_admin_id, $per_page, $offset]);
+    }
     $logs = $stmt->fetchAll();
 
     // Parser les JSON et les dates

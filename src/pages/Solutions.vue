@@ -258,7 +258,7 @@ const CATEGORY_MAP = {
   'Collectivités':      { id: 'asso',      icon: IconHandshake },
   'Associations':       { id: 'asso',      icon: IconHandshake },
 }
-const CARD_STYLE = 'background: rgba(237,249,235,0.95); color: #166030; border-color: rgba(22,96,48,0.25);'
+const CARD_STYLE = 'background: rgba(237,249,235,0.95); color: #5ca170; border-color: rgba(92,161,112,0.25);'
 
 const solutions      = ref([])
 const isLoading      = ref(true)
@@ -324,7 +324,7 @@ const filteredSolutions = computed(() => {
 }
 
 .hero-gradient-green {
-  color: #166030;
+  color: #5ca170;
   font-weight: 700;
 }
 
