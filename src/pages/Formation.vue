@@ -479,7 +479,21 @@
 </template>
 
 <script setup>
-import { formations } from '@/data/formations'
+import { ref, onMounted } from 'vue'
+import api from '@/services/api'
+
+const formations = ref([])
+
+onMounted(async () => {
+  try {
+    const { data } = await api.get('/formations')
+    formations.value = data
+  } catch {
+    // Fallback sur les données statiques si l'API échoue
+    const { formations: staticFormations } = await import('@/data/formations')
+    formations.value = staticFormations
+  }
+})
 </script>
 
 <style scoped>

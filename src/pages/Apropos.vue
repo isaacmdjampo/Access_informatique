@@ -25,8 +25,7 @@
           <h1
             class="hero-title text-3xl sm:text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 tracking-tight leading-[0.95] mb-8"
           >
-            Nous développons<br />
-            <span class="texte-degrade-green"> des solutions utiles. </span>
+            {{ heroTitle }}
           </h1>
 
           <!-- TEXTE -->
@@ -240,7 +239,7 @@
       </div>
     </section>
 
-    <!-- CTA FINAL (modifié : vert) -->
+    <!-- CTA FINAL  -->
     <section class="py-16 bg-green-600 relative overflow-hidden">
       <div
         class="absolute inset-0"
@@ -277,13 +276,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import api from '@/services/api'
+import { useContentStore } from '@/stores/content'
 
 const listeLogiciels  = ref([])
 const listeReferences = ref([])
 
+// ── Contenu dynamique depuis le store ────────────────────────────────────────
+const contentStore = useContentStore()
+const heroTitle = computed(() => contentStore.get('about', 'hero.title', 'Nous développons\ndes solutions utiles.'))
+
 onMounted(async () => {
+  // Charger les contenus textuels de la page about
+  await contentStore.load('about')
   // --- Solutions depuis l'API ---
   try {
     const { data } = await api.get('/solutions')

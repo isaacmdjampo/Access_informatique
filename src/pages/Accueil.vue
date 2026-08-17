@@ -129,8 +129,7 @@
             Éditeur de logiciels — Côte d'Ivoire
           </div>
           <h1 class="hero-title text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-slate-900 leading-[0.95] tracking-tight">
-            Des logiciels<br />
-            <span class="hero-gradient-green">taillés pour vous.</span>
+            {{ heroTitle }}
           </h1>
         </div>
       </div>
@@ -313,9 +312,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { pillars } from '@/data/homeData'
 import api from '@/services/api'
+import { useContentStore } from '@/stores/content'
 
 // ── Slider : solutions chargées depuis l'API ──────────────────────────────────
 // Quand l'admin change l'image d'une solution, le slider se met à jour.
@@ -324,7 +324,14 @@ const softwareSlides = ref([])
 // ── Partenaires chargés depuis l'API ─────────────────────────────────────────
 const partners = ref([])
 
+// ── Contenu dynamique depuis le store ────────────────────────────────────────
+const contentStore = useContentStore()
+const heroTitle = computed(() => contentStore.get('home', 'hero.title', 'Des logiciels\ntaillés pour vous.'))
+const heroDescription = computed(() => contentStore.get('home', 'hero.description', 'Access Informatique conçoit des solutions de gestion sur mesure...'))
+
 onMounted(async () => {
+  // Charger les contenus textuels de la page home
+  await contentStore.load('home')
   // Charger les solutions pour le slider
   try {
     const { data } = await api.get('/solutions')

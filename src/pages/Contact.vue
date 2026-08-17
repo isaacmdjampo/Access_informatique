@@ -23,8 +23,7 @@
         <h1
           class="text-3xl sm:text-5xl md:text-7xl font-black text-slate-900 leading-[0.95] tracking-tight mb-10"
         >
-          Parlons de<br />
-          <span class="hero-gradient-green">votre projet.</span>
+          {{ heroTitle }}
         </h1>
 
         <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
@@ -262,12 +261,23 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted, computed } from 'vue'
 import api from '@/services/api'
+import { useContentStore } from '@/stores/content'
 
 const loading  = ref(false)
 const success  = ref(false)
 const apiError = ref('')
+
+// ── Contenu dynamique depuis le store ────────────────────────────────────────
+const contentStore = useContentStore()
+const heroTitle = computed(() => contentStore.get('contact', 'hero.title', 'Parlons de\nvotre projet.'))
+const heroDescription = computed(() => contentStore.get('contact', 'hero.description', 'Notre équipe vous accompagne dans la conception de vos solutions...'))
+
+onMounted(async () => {
+  // Charger les contenus textuels de la page contact
+  await contentStore.load('contact')
+})
 
 const form = reactive({
   name:    '',
