@@ -44,8 +44,9 @@ class Mailer
             "X-Mailer: PHP/" . phpversion(),
         ];
 
-        // Envoyer l'email
-        $result = mail($to, $subject, $html_body, implode("\r\n", $headers));
+        // Envoyer l'email sans sortir de warnings PHP en local si aucun SMTP n'est configuré.
+        // Le formulaire doit rester fonctionnel même en environnement local sans serveur mail.
+        $result = @mail($to, $subject, $html_body, implode("\r\n", $headers));
 
         if (!$result) {
             error_log("[Mailer] Échec d'envoi à {$to_email}");

@@ -203,18 +203,18 @@
         </div>
 
         <!-- Section Partenaires -->
-        <div v-if="filteredPartners.length" class="border-t border-slate-200 pt-12">
+        <div v-if="solution?.partnerLogos?.length" class="border-t border-slate-200 pt-12">
           <h3 class="text-lg font-bold text-slate-900 text-center mb-8">Utilisé par nos partenaires</h3>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
             <div
-              v-for="partner in filteredPartners"
-              :key="partner.nom"
-              class="flex items-center justify-center p-6 rounded-lg bg-white border border-slate-100 "
+              v-for="partner in solution.partnerLogos"
+              :key="partner.name"
+              class="flex items-center justify-center p-6 rounded-lg bg-white border border-slate-100"
             >
               <img
-                :src="partner.logo"
-                :alt="partner.nom"
-                class="h-20-auto object-contain  hover:grayscale-0 transition-all duration-300"
+                :src="partner.logo_url"
+                :alt="partner.name"
+                class="h-20 object-contain hover:grayscale-0 transition-all duration-300"
               />
             </div>
           </div>
@@ -326,49 +326,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import api from '@/services/api'
-import { listeReferences, listeLogiciels } from '@/data/aboutData'
 
 const route    = useRoute()
 const solution = ref(null)
 const isLoading = ref(true)
 const error     = ref(null)
 
-const normalizeText = (value) =>
-  String(value || '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '')
-
-// Filtrer les partenaires en fonction du logiciel ou du slug
-const filteredPartners = computed(() => {
-  if (!solution.value) return []
-
-  const solutionKey = normalizeText(solution.value.slug || solution.value.name)
-
-  const logiciel = listeLogiciels.find((log) => {
-    const logKey = normalizeText(log.nom)
-    return (
-      logKey === solutionKey ||
-      logKey.includes(solutionKey) ||
-      solutionKey.includes(logKey)
-    )
-  })
-
-  if (!logiciel) return []
-
-  return listeReferences.filter((ref) =>
-    logiciel.references.some((nom) => normalizeText(nom) === normalizeText(ref.nom))
-  )
-})
-
 async function fetchSolution(slug) {
   isLoading.value = true
   error.value     = null
   try {
     const { data } = await api.get(`/solutions?slug=${slug}`)
-    // Transformer snake_case → camelCase pour garder la compatibilité du template
     solution.value = {
       ...data,
       heroImage:        data.hero_image,
@@ -378,10 +349,9 @@ async function fetchSolution(slug) {
       demoUrl:          data.demo_url,
       accentColor:      data.accent_color,
       accentColorLight: data.accent_color_light,
-      partners:         data.partners || [],
+      partnerLogos:     Array.isArray(data.partner_logos) ? data.partner_logos : [],
     }
   } catch (e) {
-    // Fallback sur les données locales si l'API est indisponible
     try {
       const { getSolutionBySlug } = await import('@/data/solutionsDetailData')
       solution.value = getSolutionBySlug(slug)

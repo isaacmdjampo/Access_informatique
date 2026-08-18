@@ -27,8 +27,7 @@
         </h1>
 
         <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-          Notre équipe vous accompagne dans la conception de vos solutions logicielles, applications
-          métiers et systèmes de gestion.
+          {{ heroBody }}
         </p>
       </div>
     </section>
@@ -44,7 +43,7 @@
                 Envoyez-nous un message
               </p>
 
-              <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+              <h2 class="section-title text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
                 Contactez-nous
               </h2>
 
@@ -142,7 +141,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                   </svg>
                   <span class="text-sm font-medium">
-                    Votre message a bien été envoyé. Notre équipe vous répondra dans les 24h.
+                    Votre message a bien été envoyé. Le service Access Informatique vous répondra par email ou par téléphone.
                   </span>
                 </div>
               </Transition>
@@ -271,8 +270,8 @@ const apiError = ref('')
 
 // ── Contenu dynamique depuis le store ────────────────────────────────────────
 const contentStore = useContentStore()
-const heroTitle = computed(() => contentStore.get('contact', 'hero.title', 'Parlons de\nvotre projet.'))
-const heroDescription = computed(() => contentStore.get('contact', 'hero.description', 'Notre équipe vous accompagne dans la conception de vos solutions...'))
+const heroTitle = computed(() => contentStore.get('contact', 'hero.title', 'Parlons de votre projet.'))
+const heroBody = computed(() => contentStore.get('contact', 'hero.body', 'Notre équipe vous accompagne dans la conception de vos solutions logicielles, applications métiers et systèmes de gestion.'))
 
 onMounted(async () => {
   // Charger les contenus textuels de la page contact
@@ -288,7 +287,6 @@ const form = reactive({
 })
 
 const submitForm = async () => {
-  loading.value  = false
   success.value  = false
   apiError.value = ''
   loading.value  = true
@@ -304,12 +302,13 @@ const submitForm = async () => {
 
     if (data.success) {
       success.value = true
-      // Réinitialiser le formulaire après succès
-      form.name    = ''
-      form.email   = ''
-      form.phone   = ''
-      form.subject = ''
-      form.message = ''
+      Object.assign(form, {
+        name: '',
+        email: '',
+        phone: '',
+        subject: '',
+        message: '',
+      })
     }
   } catch (err) {
     apiError.value = err.response?.data?.error
@@ -333,5 +332,31 @@ const submitForm = async () => {
 .hero-gradient-green {
   color: #5ca170;
   font-weight: 700;
+}
+
+/* Animations hero */
+.hero-badge {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.1s;
+}
+.hero-title {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section titles - Mêmes animations que hero */
+.section-title {
+  animation: fadeSlideUp 0.6s ease both;
 }
 </style>

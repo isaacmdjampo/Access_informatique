@@ -54,7 +54,7 @@
 
           <div v-else class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-start">
             <div class="rounded-[2rem] border border-slate-200 bg-white shadow-xl overflow-hidden">
-              <img :src="formation.image" :alt="formation.title" class="w-full h-80 object-cover" />
+              <img :src="getFormationImage(formation.image)" :alt="formation.title" class="w-full h-80 object-cover" />
               <div class="p-10">
                 <span
                   class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 text-green-700 text-xs font-semibold uppercase tracking-[0.2em] mb-10"
@@ -131,7 +131,7 @@
 
             <div class="space-y-8">
               <div class="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
-                <h2 class="text-3xl font-black text-slate-900 mb-10">Programme de la formation</h2>
+                <h2 class="section-title text-3xl font-black text-slate-900 mb-10">Programme de la formation</h2>
                 <div class="space-y-4">
                   <div
                     v-for="(module, index) in modules"
@@ -175,6 +175,9 @@ const route     = useRoute()
 const router    = useRouter()
 const formation = ref(null)
 const isLoading = ref(true)
+const defaultFormationImage = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop'
+
+const getFormationImage = (value) => value || defaultFormationImage
 
 // Valeurs par défaut affichées si la formation n'a pas encore de modules/bénéfices
 const defaultModules = [
@@ -198,10 +201,11 @@ onMounted(async () => {
   const slug = route.params.slug
   try {
     const { data } = await api.get(`/formations?slug=${slug}`)
-    // Le backend retourne image_url ; le template utilise formation.image
-    formation.value = { ...data, image: data.image_url }
+    formation.value = {
+      ...data,
+      image: getFormationImage(data.image_url || data.image),
+    }
   } catch (err) {
-    // 404 → formation non trouvée (template affiche déjà le message adapté)
     formation.value = null
   } finally {
     isLoading.value = false
@@ -225,5 +229,21 @@ onMounted(async () => {
 
 .animate-spin {
   animation: spin 0.8s linear infinite;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section titles - Mêmes animations que hero */
+.section-title {
+  animation: fadeSlideUp 0.6s ease both;
 }
 </style>

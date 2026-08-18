@@ -268,8 +268,8 @@
             </div>
             <h3 class="text-2xl font-black text-slate-900 mb-2">Demande envoyée !</h3>
             <p class="text-slate-500 leading-relaxed">
-              Merci <strong>{{ successPrenom }}</strong> ! Notre équipe vous contactera dans les 24h à
-              l'adresse <strong>{{ successEmail }}</strong>.
+              Merci <strong>{{ successPrenom }}</strong> ! Votre demande a bien été envoyée. Le service
+              Access Informatique vous répondra à l'adresse <strong>{{ successEmail }}</strong> ou par téléphone.
             </p>
             <router-link
               to="/formation"
@@ -332,6 +332,7 @@ onMounted(() => { window.scrollTo({ top: 0, behavior: 'instant' }) })
 
 const handleSubmit = async () => {
   apiError.value = ''
+  submitted.value = false
 
   if (!form.prenom || !form.nom || !form.email || !form.telephone || !form.formation) {
     apiError.value = 'Veuillez remplir tous les champs obligatoires (*).'
@@ -357,11 +358,21 @@ const handleSubmit = async () => {
       successPrenom.value = data.prenom || form.prenom
       successEmail.value  = data.email  || form.email
       submitted.value = true
+      Object.assign(form, {
+        prenom: '',
+        nom: '',
+        email: '',
+        telephone: '',
+        ville: '',
+        formation: '',
+        format: '',
+        niveau: '',
+        message: '',
+      })
     }
   } catch (err) {
     const errors = err.response?.data?.errors
     if (errors) {
-      // Afficher la première erreur de validation
       apiError.value = Object.values(errors)[0]
     } else {
       apiError.value = err.response?.data?.error

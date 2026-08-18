@@ -61,9 +61,10 @@ function handle_get(): never
             error_response('Solution introuvable.', 404);
         }
 
-        $sol['modules']    = fetch_related('solution_modules',    $id, ['title','description','sort_order']);
-        $sol['advantages'] = fetch_related('solution_advantages', $id, ['text','sort_order']);
-        $sol['tags']       = fetch_related('solution_tags',       $id, ['tag','sort_order']);
+        $sol['modules']       = fetch_related('solution_modules',       $id, ['title','description','sort_order']);
+        $sol['advantages']    = fetch_related('solution_advantages',    $id, ['text','sort_order']);
+        $sol['tags']          = fetch_related('solution_tags',          $id, ['tag','sort_order']);
+        $sol['partner_logos'] = fetch_related('solution_partner_logos', $id, ['id','name','logo_url','sort_order','is_active']);
 
         json_response($sol);
     } else {
@@ -261,7 +262,7 @@ function build_solution_params(array $data): array
 function replace_related(PDO $db, int $solution_id, array $data): void
 {
     // Supprimer les anciens (CASCADE gère aussi, mais ici on le fait explicitement)
-    foreach (['solution_modules','solution_advantages','solution_tags'] as $table) {
+    foreach (['solution_modules','solution_advantages','solution_tags','solution_partner_logos'] as $table) {
         $db->prepare("DELETE FROM $table WHERE solution_id = ?")->execute([$solution_id]);
     }
 
@@ -300,6 +301,28 @@ function replace_related(PDO $db, int $solution_id, array $data): void
         );
         foreach ($data['tags'] as $i => $tag) {
             $stmt->execute([$solution_id, substr(trim((string) $tag), 0, 80), $i + 1]);
+        }
+    }
+
+    // Insérer les logos partenaires attachés à cette solution uniquement
+    if (!empty($data['partner_logos']) && is_array($data['partner_logos'])) {
+        $stmt = $db->prepare(
+            'INSERT INTO solution_partner_logos (solution_id, name, logo_url, is_active, sort_order)
+             VALUES (?, ?, ?, ?, ?)'
+        );
+        foreach ($data['partner_logos'] as $i => $partner) {
+            $name = trim((string)($partner['name'] ?? ''));
+            $logo = trim((string)($partner['logo_url'] ?? ''));
+            if ($name === '' || $logo === '') {
+                continue;
+            }
+            $stmt->execute([
+                $solution_id,
+                substr($name, 0, 150),
+                substr($logo, 0, 500),
+                isset($partner['is_active']) ? (int) $partner['is_active'] : 1,
+                $i + 1,
+            ]);
         }
     }
 }

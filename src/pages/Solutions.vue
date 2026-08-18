@@ -161,7 +161,7 @@
           <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
             Pourquoi nous choisir
           </p>
-          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+          <h2 class="section-title text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
             Au-delà du logiciel
           </h2>
           <p class="text-slate-500 mt-4 max-w-xl mx-auto">
@@ -350,6 +350,11 @@ const filteredSolutions = computed(() => {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Section titles - Mêmes animations que hero */
+.section-title {
+  animation: fadeSlideUp 0.6s ease both;
 }
 
 /* Cards transition group */

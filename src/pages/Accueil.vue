@@ -139,10 +139,7 @@
     <section class="py-16 bg-slate-50">
       <div class="max-w-4xl mx-auto px-6 text-center">
         <p class="text-lg md:text-xl text-slate-600 leading-relaxed">
-          Access Informatique conçoit des solutions de gestion sur mesure pour les
-          <strong class="text-slate-800 font-semibold">particuliers</strong> et les
-          <strong class="text-slate-800 font-semibold">professionnels</strong>
-          qui veulent aller plus loin.
+          {{ heroSubtitle }}
         </p>
 
         <!-- Indicateurs de confiance -->
@@ -174,7 +171,7 @@
           <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
             Notre expertise
           </p>
-          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+          <h2 class="section-title text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
             Pourquoi Access Informatique ?
           </h2>
         </div>
@@ -203,7 +200,7 @@
         <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
           Ils nous font confiance
         </p>
-        <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+        <h2 class="section-title text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
           Nos partenaires
         </h2>
         <p class="text-slate-500 mt-4 max-w-xl mx-auto">
@@ -326,7 +323,8 @@ const partners = ref([])
 
 // ── Contenu dynamique depuis le store ────────────────────────────────────────
 const contentStore = useContentStore()
-const heroTitle = computed(() => contentStore.get('home', 'hero.title', 'Des logiciels\ntaillés pour vous.'))
+const heroTitle = computed(() => contentStore.get('home', 'hero.title', 'Des logiciels taillés pour vous.'))
+const heroSubtitle = computed(() => contentStore.get('home', 'hero.subtitle', 'Access Informatique conçoit des solutions de gestion sur mesure pour les particuliers et les professionnels qui veulent aller plus loin.'))
 const heroDescription = computed(() => contentStore.get('home', 'hero.description', 'Access Informatique conçoit des solutions de gestion sur mesure...'))
 
 onMounted(async () => {
@@ -445,6 +443,11 @@ onUnmounted(() => clearInterval(sliderInterval))
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Section titles - Mêmes animations que hero */
+.section-title {
+  animation: fadeSlideUp 0.6s ease both;
 }
 
 /* Animation des stats */

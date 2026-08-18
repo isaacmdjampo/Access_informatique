@@ -166,6 +166,31 @@
               </div>
             </div>
 
+            <!-- Logos partenaires -->
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <label class="text-xs font-bold text-slate-600 uppercase tracking-wide">Logos partenaires</label>
+                <button @click="addPartnerLogo" class="text-xs text-green-600 font-semibold hover:underline">+ Ajouter</button>
+              </div>
+              <div class="space-y-3">
+                <div v-for="(partnerLogo, i) in form.partner_logos" :key="i" class="flex gap-2 rounded-xl border border-slate-200 p-3 bg-slate-50/60">
+                  <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <input v-model="partnerLogo.name" class="field text-sm" placeholder="Nom du partenaire" />
+                    <div class="flex gap-2">
+                      <input v-model="partnerLogo.logo_url" class="field text-sm flex-1" placeholder="URL du logo" />
+                      <label class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium cursor-pointer flex-shrink-0">
+                        Upload
+                        <input type="file" accept="image/*" class="hidden" @change="uploadPartnerLogo($event, i)" />
+                      </label>
+                    </div>
+                  </div>
+                  <button @click="form.partner_logos.splice(i, 1)" class="p-2 text-red-400 hover:text-red-600 self-start">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <!-- Tags -->
             <div>
               <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1.5">Tags (séparés par des virgules)</label>
@@ -229,6 +254,14 @@ const formError    = ref('')
 const deleteTarget = ref(null)
 const tagsInput    = ref('')
 
+const emptyPartnerLogo = () => ({
+  id: null,
+  name: '',
+  logo_url: '',
+  is_active: 1,
+  sort_order: 0,
+})
+
 const emptyForm = () => ({
   id: null, slug: '', name: '', tagline: '', category: '',
   accent_color: '#5ca170', accent_color_light: '#eef7f2',
@@ -236,7 +269,7 @@ const emptyForm = () => ({
   brochure_url: '', demo_url: '',
   stat1_value: '', stat1_label: '', stat2_value: '', stat2_label: '', stat3_value: '', stat3_label: '',
   is_active: 1, sort_order: 0,
-  modules: [], advantages: [],
+  modules: [], advantages: [], partner_logos: [],
 })
 
 const form = reactive(emptyForm())
@@ -261,12 +294,22 @@ async function openForm(id = null) {
     Object.assign(form, data)
     form.advantages = Array.isArray(data.advantages) ? data.advantages.map((a) => a.text ?? a) : []
     form.modules    = Array.isArray(data.modules)    ? data.modules.map((m) => ({ title: m.title, description: m.description })) : []
+    form.partner_logos = Array.isArray(data.partner_logos)
+      ? data.partner_logos.map((p) => ({
+          id: p.id ?? null,
+          name: p.name ?? '',
+          logo_url: p.logo_url ?? '',
+          is_active: p.is_active ?? 1,
+          sort_order: p.sort_order ?? 0,
+        }))
+      : []
     tagsInput.value = Array.isArray(data.tags) ? data.tags.map((t) => t.tag ?? t).join(', ') : ''
   }
   showForm.value = true
 }
 
 function addModule() { form.modules.push({ title: '', description: '' }) }
+function addPartnerLogo() { form.partner_logos.push(emptyPartnerLogo()) }
 
 async function uploadImage(e) {
   const file = e.target.files?.[0]
@@ -280,15 +323,32 @@ async function uploadImage(e) {
   } catch { formError.value = 'Erreur lors de l\'upload de l\'image.' }
 }
 
+async function uploadPartnerLogo(e, index) {
+  const file = e.target.files?.[0]
+  if (!file) return
+  const fd = new FormData()
+  fd.append('image', file)
+  fd.append('type', 'partner')
+  try {
+    const { data } = await api.post('/admin/upload', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
+    form.partner_logos[index].logo_url = data.url
+  } catch {
+    formError.value = 'Erreur lors de l\'upload du logo partenaire.'
+  }
+}
+
 async function submitForm() {
   formError.value = ''
   submitting.value = true
   try {
     const payload = {
       ...form,
-      tags:       tagsInput.value.split(',').map((t) => t.trim()).filter(Boolean),
-      advantages: form.advantages.filter(Boolean),
-      modules:    form.modules.filter((m) => m.title),
+      tags:         tagsInput.value.split(',').map((t) => t.trim()).filter(Boolean),
+      advantages:   form.advantages.filter(Boolean),
+      modules:      form.modules.filter((m) => m.title),
+      partner_logos: form.partner_logos
+        .filter((p) => p.name && p.logo_url)
+        .map((p, idx) => ({ ...p, sort_order: idx + 1 })),
     }
     if (form.id) {
       await api.put(`/admin/solutions?id=${form.id}`, payload)

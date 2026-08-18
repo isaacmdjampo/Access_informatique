@@ -49,7 +49,7 @@
           <p class="text-xs font-bold tracking-[0.2em] uppercase mb-3" style="color: #5ca170">
             Nos références
           </p>
-          <h2 class="text-3xl md:text-4xl font-black text-slate-900">
+          <h2 class="section-title text-3xl md:text-4xl font-black text-slate-900">
             {{ partners.length }} partenaires actifs
           </h2>
           <p class="text-slate-500 mt-4 max-w-xl mx-auto">
@@ -158,5 +158,31 @@ onMounted(() => {
 <style scoped>
 .partners-page {
   overflow-x: hidden;
+}
+
+/* Animations hero */
+.hero-badge {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.1s;
+}
+.hero-title {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section titles - Mêmes animations que hero */
+.section-title {
+  animation: fadeSlideUp 0.6s ease both;
 }
 </style>

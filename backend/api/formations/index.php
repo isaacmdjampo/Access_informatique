@@ -15,6 +15,8 @@
 
 declare(strict_types=1);
 
+const DEFAULT_FORMATION_IMAGE = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop';
+
 require_once __DIR__ . '/../../includes/config.php';
 require_once __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../includes/Response.php';
@@ -79,6 +81,9 @@ function get_all_formations(): never
     }
 
     foreach ($formations as &$formation) {
+        $formation['image_url'] = empty($formation['image_url'])
+            ? DEFAULT_FORMATION_IMAGE
+            : $formation['image_url'];
         $formation['skills'] = $skills_map[(int) $formation['id']] ?? [];
     }
     unset($formation);
@@ -108,6 +113,10 @@ function get_formation_by_slug(string $slug): never
     }
 
     $id = (int) $formation['id'];
+
+    if (empty($formation['image_url'])) {
+        $formation['image_url'] = DEFAULT_FORMATION_IMAGE;
+    }
 
     // ---- Skills ----
     $stmt = $db->prepare(

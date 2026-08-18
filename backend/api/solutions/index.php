@@ -165,5 +165,15 @@ function get_solution_by_slug(string $slug): never
     $stmt->execute([$id]);
     $solution['tags'] = array_column($stmt->fetchAll(), 'tag');
 
+    // ---- Logos partenaires associés à cette solution uniquement ----
+    $stmt = $db->prepare(
+        'SELECT name, logo_url
+           FROM solution_partner_logos
+          WHERE solution_id = ? AND is_active = 1
+          ORDER BY sort_order ASC'
+    );
+    $stmt->execute([$id]);
+    $solution['partner_logos'] = $stmt->fetchAll();
+
     json_response($solution);
 }

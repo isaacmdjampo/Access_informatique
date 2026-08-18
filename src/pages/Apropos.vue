@@ -32,9 +32,7 @@
           <p
             class="hero-copy text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mb-10 mx-auto"
           >
-            Depuis plus de 20 ans, Access Informatique accompagne les entreprises, écoles,
-            cliniques, mutuelles et institutions avec des logiciels conçus spécialement pour leurs
-            réalités métiers.
+            {{ heroBody }}
           </p>
 
           <!-- STATS  -->
@@ -73,7 +71,7 @@
             <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
               Notre présentation
             </p>
-            <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-8">
+            <h2 class="section-title text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-8">
               Une expertise construite sur le terrain.
             </h2>
             <div class="space-y-6 text-slate-500 text-lg leading-relaxed">
@@ -141,7 +139,7 @@
           <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
             Nos logiciels
           </p>
-          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+          <h2 class="section-title text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
             Des solutions conçues<br />
             pour chaque métier.
           </h2>
@@ -214,7 +212,7 @@
         <p class="text-xs font-bold tracking-[0.2em] text-green-600 uppercase mb-3">
           Nos références
         </p>
-        <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+        <h2 class="section-title text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
           Ils nous font confiance.
         </h2>
         <p class="text-slate-500 text-lg mt-5 max-w-2xl mx-auto">
@@ -285,7 +283,8 @@ const listeReferences = ref([])
 
 // ── Contenu dynamique depuis le store ────────────────────────────────────────
 const contentStore = useContentStore()
-const heroTitle = computed(() => contentStore.get('about', 'hero.title', 'Nous développons\ndes solutions utiles.'))
+const heroTitle = computed(() => contentStore.get('about', 'hero.title', 'Nous développons des solutions utiles.'))
+const heroBody = computed(() => contentStore.get('about', 'hero.body', 'Depuis plus de 20 ans, Access Informatique accompagne les entreprises, écoles, cliniques, mutuelles et institutions avec des logiciels conçus spécialement pour leurs réalités métiers.'))
 
 onMounted(async () => {
   // Charger les contenus textuels de la page about
@@ -357,6 +356,11 @@ onMounted(async () => {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Section titles - Mêmes animations que hero */
+.section-title {
+  animation: fadeSlideUp 0.6s ease both;
 }
 
 @keyframes fadeSlideUp {

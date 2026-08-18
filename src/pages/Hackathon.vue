@@ -114,7 +114,7 @@
             Thématiques
           </p>
 
-          <h2 class="text-2xl sm:text-4xl md:text-6xl font-black tracking-tight text-slate-900">
+          <h2 class="section-title text-2xl sm:text-4xl md:text-6xl font-black tracking-tight text-slate-900">
             Créez des projets à fort impact.
           </h2>
 
@@ -156,7 +156,7 @@
             Déroulement
           </p>
 
-          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900">
+          <h2 class="section-title text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900">
             Le programme du Hackathon.
           </h2>
         </div>
@@ -296,5 +296,31 @@ onMounted(async () => {
   .hero-grid {
     background-size: 40px 40px;
   }
+}
+
+/* Animations hero */
+.hero-badge {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.1s;
+}
+.hero-title {
+  animation: fadeSlideUp 0.6s ease both;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section titles - Mêmes animations que hero */
+.section-title {
+  animation: fadeSlideUp 0.6s ease both;
 }
 </style>

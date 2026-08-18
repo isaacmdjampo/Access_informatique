@@ -135,7 +135,7 @@
             Nos formations
           </p>
 
-          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900">
+          <h2 class="section-title text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900">
             Choisissez votre parcours.
           </h2>
 
@@ -254,7 +254,7 @@
               Notre méthode
             </p>
 
-            <h2 class="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight">
+            <h2 class="section-title text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 leading-tight">
               Une pédagogie moderne et immersive.
             </h2>
 
@@ -483,15 +483,29 @@ import { ref, onMounted } from 'vue'
 import api from '@/services/api'
 
 const formations = ref([])
+const defaultFormationImage = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop'
+
+const normalizeFormationImage = (value) => {
+  if (typeof value !== 'string') return defaultFormationImage
+  const clean = value.trim()
+  return clean || defaultFormationImage
+}
 
 onMounted(async () => {
   try {
     const { data } = await api.get('/formations')
-    formations.value = data
+    formations.value = Array.isArray(data)
+      ? data.map((formation) => ({
+          ...formation,
+          image: normalizeFormationImage(formation.image_url || formation.image),
+        }))
+      : []
   } catch {
-    // Fallback sur les données statiques si l'API échoue
     const { formations: staticFormations } = await import('@/data/formations')
-    formations.value = staticFormations
+    formations.value = staticFormations.map((formation) => ({
+      ...formation,
+      image: normalizeFormationImage(formation.image),
+    }))
   }
 })
 </script>
@@ -526,6 +540,11 @@ onMounted(async () => {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Section titles - Mêmes animations que hero */
+.section-title {
+  animation: fadeSlideUp 0.6s ease both;
 }
 
 @media (max-width: 768px) {

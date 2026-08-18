@@ -141,6 +141,25 @@ CREATE TABLE IF NOT EXISTS `solution_tags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ============================================================
+-- TABLE : solution_partner_logos
+-- Logos d'utilisateurs / partenaires affichés sur la page détail
+-- d'une solution donnée.
+-- ============================================================
+CREATE TABLE IF NOT EXISTS `solution_partner_logos` (
+  `id`          INT UNSIGNED  NOT NULL AUTO_INCREMENT,
+  `solution_id` INT UNSIGNED  NOT NULL,
+  `name`        VARCHAR(150)  NOT NULL,
+  `logo_url`    VARCHAR(500)  NOT NULL,
+  `is_active`   TINYINT(1)    NOT NULL DEFAULT 1,
+  `sort_order`  TINYINT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `idx_spl_solution_id` (`solution_id`),
+  CONSTRAINT `fk_spl_solution`
+    FOREIGN KEY (`solution_id`) REFERENCES `solutions` (`id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================================
 -- TABLE : formations
 -- Catalogue des formations proposées par Access Informatique.
 -- ============================================================

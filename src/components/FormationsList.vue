@@ -173,7 +173,7 @@
           >
             <div class="relative overflow-hidden h-60">
               <img
-                :src="formation.image"
+                :src="getFormationImage(formation.image)"
                 :alt="formation.title"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
@@ -294,17 +294,24 @@ import api from '@/services/api'
 const searchQuery  = ref('')
 const isPageLoading = ref(true)
 const formations   = ref([])
+const defaultFormationImage = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop'
+
+const getFormationImage = (value) => value || defaultFormationImage
 
 // \u2500\u2500 Chargement depuis l'API \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 onMounted(async () => {
   try {
     const { data } = await api.get('/formations')
-    // Mapper image_url \u2192 image pour garder la compatibilit\u00e9 avec le template
-    formations.value = data.map((f) => ({ ...f, image: f.image_url }))
+    formations.value = data.map((f) => ({
+      ...f,
+      image: getFormationImage(f.image_url || f.image),
+    }))
   } catch {
-    // Fallback sur les donn\u00e9es locales si l'API est indisponible
     const local = await import('@/data/formations')
-    formations.value = local.formations
+    formations.value = local.formations.map((f) => ({
+      ...f,
+      image: getFormationImage(f.image),
+    }))
   } finally {
     isPageLoading.value = false
   }
